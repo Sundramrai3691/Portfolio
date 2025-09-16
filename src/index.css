@@ -1,0 +1,65 @@
+/* Minimalist modern palette + small utility overrides */
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root{
+  --bg: #0b1220;        /* deep navy */
+  --card: #0f1724;      /* card background */
+  --muted: #94a3b8;     /* muted text */
+  --accent: #9be7ff;    /* soft cyan accent */
+  --accent-2: #a78bfa;  /* soft violet accent */
+  --text: #e6eef8;      /* main text */
+}
+
+/* global */
+html,body,#root{
+  height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* small modern card */
+.card{
+  background: var(--card);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* muted text helper */
+.text-muted{ color: var(--muted); }
+
+/* modern gradient buttons */
+.btn {
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  padding:.5rem .85rem;
+  border-radius:10px;
+  font-weight:600;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color:#041025;
+  border: none;
+  cursor: pointer;
+}
+
+/* header styling */
+.header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:1rem 1.25rem;
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+  background: linear-gradient(135deg, rgba(15, 23, 36, 0.95), rgba(11, 18, 32, 0.98));
+}
+
+/* small responsive tweaks */
+@media (max-width: 640px){
+  .header { padding: .75rem; flex-direction: column; gap:.6rem; align-items:flex-start; }
+  .header h1 { font-size: 1.5rem !important; }
+}

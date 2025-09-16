@@ -2,7 +2,7 @@
 
 Personal portfolio for Sundram (handle: `nerdy_specs`). Built with React + Vite. Content customized to match resume (projects, skills, achievements, experience).
 
-🌐 **Live Website**: [Portfolio](https://nerd_specs.vercel.app/)
+🌐 **Live Website**: [Portfolio](https://nerd-specs.vercel.app/)
 
 ---
 

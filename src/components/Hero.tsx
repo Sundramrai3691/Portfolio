@@ -43,7 +43,7 @@ export const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto"
         >
-          B.Tech final year at NIT Raipur — Full-Stack & ML Enthusiast
+          B.Tech pre-final year at NIT Raipur — Full-Stack & ML Enthusiast
         </motion.p>
 
         <motion.div

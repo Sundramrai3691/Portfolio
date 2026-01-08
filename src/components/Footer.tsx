@@ -18,7 +18,7 @@ export const Footer = () => {
 
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com/Sundramra3691"
+              href="https://github.com/Sundramrai3691"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 rounded-full border border-border hover:border-primary bg-card/50 backdrop-blur-sm hover:bg-primary/10 hover:scale-110 transition-all"
@@ -27,7 +27,7 @@ export const Footer = () => {
               <Github size={20} />
             </a>
             <a
-              href="https://linkedin.com/in/sundram-kumar-rai"
+              href="https://linkedin.com/in/sundram-rai3961"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 rounded-full border border-border hover:border-primary bg-card/50 backdrop-blur-sm hover:bg-primary/10 hover:scale-110 transition-all"

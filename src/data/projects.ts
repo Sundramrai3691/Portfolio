@@ -67,4 +67,6 @@ export const PROJECTS = [
     category: "ml",
     featured: false,
     github: "https://github.com/Sundramrai3691/Smart_Scan",
+    liveUrl: "", // optional: add if you have one
+  },
 ] as const;

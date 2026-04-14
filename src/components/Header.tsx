@@ -32,7 +32,15 @@ export const Header = () => {
   }, []);
 
   useEffect(() => {
-    const sectionIds = ["hero", "skills", "projects", "experience", "achievements", "profiles", "contact"];
+    const sectionIds = [
+      "hero",
+      "skills",
+      "projects",
+      "experience",
+      "achievements",
+      "profiles",
+      "contact",
+    ];
     const sections = sectionIds
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => Boolean(section));
@@ -64,7 +72,11 @@ export const Header = () => {
       )}
     >
       <div
-        style={{ width: `${progress}%`, height: 2, background: "linear-gradient(90deg, #00C8FF, #7B61FF)" }}
+        style={{
+          width: `${progress}%`,
+          height: 2,
+          background: "linear-gradient(90deg, #00C8FF, #7B61FF)",
+        }}
         className="fixed left-0 top-0 z-[100] transition-none"
       />
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 md:px-12">
@@ -94,7 +106,7 @@ export const Header = () => {
         <div className="hidden md:block">
           <Button
             asChild
-            className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-6 text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-cyan-400/20 hover:shadow-[0_0_30px_rgba(0,200,255,0.22)]"
+            className="rounded-full bg-cyan-400 px-6 text-slate-950 transition-all hover:-translate-y-0.5 hover:bg-cyan-500 hover:shadow-[0_0_30px_rgba(0,200,255,0.35)]"
           >
             <a href={`mailto:${PERSONAL.email}`} data-cursor="OPEN">
               Contact Me
@@ -105,7 +117,9 @@ export const Header = () => {
         <button
           className="text-foreground md:hidden"
           onClick={() => setMobileMenuOpen((open) => !open)}
-          aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-label={
+            mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -127,8 +141,15 @@ export const Header = () => {
                 {link.name}
               </a>
             ))}
-            <Button asChild className="w-full rounded-full bg-primary text-primary-foreground">
-              <a href={`mailto:${PERSONAL.email}`} onClick={closeMobileMenu} data-cursor="OPEN">
+            <Button
+              asChild
+              className="w-full rounded-full bg-cyan-400 text-slate-950 hover:bg-cyan-500"
+            >
+              <a
+                href={`mailto:${PERSONAL.email}`}
+                onClick={closeMobileMenu}
+                data-cursor="OPEN"
+              >
                 Contact Me
               </a>
             </Button>

@@ -9,6 +9,7 @@ const PLATFORM_META = {
   LeetCode: { color: "#FFA116", mark: "LC" },
   Codeforces: { color: "#318CE7", mark: "CF" },
   CodeChef: { color: "#5B4638", mark: "CC" },
+  Codolio: { color: "#3B82F6", mark: "CO" },
 } as const;
 
 function PlatformMark({ platform }: { platform: keyof typeof PLATFORM_META }) {

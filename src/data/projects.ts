@@ -14,7 +14,8 @@ export const PROJECTS = [
     tags: ["React", "Socket.IO", "Node.js", "Express", "MongoDB", "Redis", "CodeMirror"],
     category: "fullstack",
     featured: true,
-    github: "https://github.com/Sundramra3691",
+    github: "https://github.com/Sundramrai3691",
+    liveUrl: "https://fork-space.vercel.app/",
   },
   {
     id: "rexcan",
@@ -31,7 +32,8 @@ export const PROJECTS = [
     tags: ["FastAPI", "OCR", "LLMs", "Node.js", "React", "Python"],
     category: "ml",
     featured: true,
-    github: "https://github.com/Sundramra3691",
+    github: "https://github.com/Sundramrai3691",
+    liveUrl: "https://rexcan.vercel.app/",
   },
   {
     id: "hireable",
@@ -47,7 +49,8 @@ export const PROJECTS = [
     tags: ["React", "TypeScript", "Vite", "shadcn/ui", "Node.js", "MongoDB", "Vercel"],
     category: "fullstack",
     featured: false,
-    github: "https://github.com/Sundramra3691",
+    github: "https://github.com/Sundramrai3691",
+    liveUrl: "https://hireable-web-app.vercel.app/",
   },
   {
     id: "smart-scan",
@@ -63,6 +66,5 @@ export const PROJECTS = [
     tags: ["Python", "Flask", "YOLOv5", "EasyOCR", "Roboflow", "PyTorch"],
     category: "ml",
     featured: false,
-    github: "https://github.com/Sundramra3691",
-  },
+    github: "https://github.com/Sundramrai3691/Smart_Scan",
 ] as const;

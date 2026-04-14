@@ -1,53 +1,63 @@
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Code2, Github, Linkedin, Mail } from "lucide-react";
+import { toast } from "@/components/ui/sonner";
+import { PERSONAL } from "@/data";
+
+const SOCIAL_LINKS = [
+  { label: "GitHub", href: PERSONAL.github, icon: Github },
+  { label: "LinkedIn", href: PERSONAL.linkedin, icon: Linkedin },
+  { label: "LeetCode", href: PERSONAL.leetcode, icon: Code2 },
+];
 
 export const Footer = () => {
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(PERSONAL.email);
+      toast.success("Email copied to clipboard");
+    } catch {
+      toast.error("Could not copy email");
+    }
+  };
+
   return (
-    <footer id="contact" className="relative py-12 px-6 border-t border-border">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
-      
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-center md:text-left">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent mb-2">
-              Let's Connect
-            </h3>
-            <p className="text-muted-foreground">
-              Open to collaboration and opportunities
-            </p>
-          </div>
+    <footer id="contact" className="relative px-6 pb-12 pt-24">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent" />
 
-          <div className="flex items-center gap-4">
-            <a
-              href="https://github.com/Sundramra3691"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full border border-border hover:border-primary bg-card/50 backdrop-blur-sm hover:bg-primary/10 hover:scale-110 transition-all"
-              aria-label="GitHub"
-            >
-              <Github size={20} />
-            </a>
-            <a
-              href="https://linkedin.com/in/sundram-kumar-rai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full border border-border hover:border-primary bg-card/50 backdrop-blur-sm hover:bg-primary/10 hover:scale-110 transition-all"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={20} />
-            </a>
-            <a
-              href="mailto:sundramrai@example.com"
-              className="p-3 rounded-full border border-border hover:border-primary bg-card/50 backdrop-blur-sm hover:bg-primary/10 hover:scale-110 transition-all"
-              aria-label="Email"
-            >
-              <Mail size={20} />
-            </a>
+      <div className="mx-auto max-w-6xl">
+        <div className="glass-card rounded-[2rem] border border-white/10 px-8 py-10 md:px-12 md:py-14">
+          <p className="text-xs uppercase tracking-[0.28em] text-cyan-100/80">Contact</p>
+          <h2 className="font-heading mt-5 text-4xl font-semibold text-white md:text-6xl">Let&apos;s build something great.</h2>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
+            Open to impactful full-stack builds, collaborative developer products, and ML-driven ideas that need both engineering and execution.
+          </p>
+
+          <button
+            type="button"
+            onClick={copyEmail}
+            className="mt-8 inline-flex items-center gap-3 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-5 py-3 text-sm font-medium text-cyan-100 transition-all hover:-translate-y-1 hover:bg-cyan-400/15 hover:shadow-[0_0_28px_rgba(0,200,255,0.2)]"
+            data-cursor="COPY"
+          >
+            <Mail size={18} />
+            {PERSONAL.email}
+          </button>
+
+          <div className="mt-8 flex flex-wrap gap-4">
+            {SOCIAL_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.label}
+                data-cursor="OPEN"
+                className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-slate-100 transition-all hover:-translate-y-1 hover:border-cyan-400/30 hover:text-cyan-200"
+              >
+                <link.icon size={18} />
+              </a>
+            ))}
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>© 2025 Sundram Kumar Rai. All rights reserved.</p>
-        </div>
+        <p className="mt-8 text-center text-sm text-muted-foreground">© 2026 Sundram Kumar Rai</p>
       </div>
     </footer>
   );

@@ -4,26 +4,22 @@ import { Hero } from '@/components/Hero';
 import { Skills } from '@/components/Skills';
 import { Projects } from '@/components/Projects';
 import { Experience } from '@/components/Experience';
-import { Responsibilities } from '@/components/Responsibilities';
 import { Achievements } from '@/components/Achievements';
-import { OpenSource } from '@/components/OpenSource';
 import { Profiles } from '@/components/Profiles';
 import { Footer } from '@/components/Footer';
 
 const Index = () => {
   return (
-    <div className="relative min-h-screen">
+    <div className="grid-bg relative min-h-screen overflow-x-clip bg-background">
       <Starfield />
       <Header />
       <main className="relative z-10">
         <Hero />
         <Skills />
-        <Profiles />
         <Projects />
         <Experience />
         <Achievements />
-        <OpenSource />
-        <Responsibilities />
+        <Profiles />
       </main>
       <Footer />
     </div>

@@ -1,110 +1,100 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { Github, Code2, Award, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Github } from "lucide-react";
+import { CERTIFICATIONS } from "@/data";
+import { CODING_PROFILES } from "@/data/codingProfiles";
+import RevealOnScroll from "./RevealOnScroll";
+import { SectionHeader } from "./SectionHeader";
+
+const PLATFORM_META = {
+  GitHub: { color: "#6e40c9", mark: "GH" },
+  LeetCode: { color: "#FFA116", mark: "LC" },
+  Codeforces: { color: "#318CE7", mark: "CF" },
+  CodeChef: { color: "#5B4638", mark: "CC" },
+} as const;
+
+function PlatformMark({ platform }: { platform: keyof typeof PLATFORM_META }) {
+  if (platform === "GitHub") {
+    return <Github size={22} className="text-white" />;
+  }
+
+  return <span className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-white">{PLATFORM_META[platform].mark}</span>;
+}
 
 export const Profiles = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
-
-  const profiles = [
-    {
-      icon: Github,
-      name: 'GitHub',
-      username: '@Sundramra3691',
-      link: 'https://github.com/Sundramra3691',
-      color: 'from-primary to-primary/50',
-    },
-    {
-      icon: Code2,
-      name: 'CodeChef',
-      username: '@sundram_45',
-      link: 'https://www.codechef.com/users/sundram_45',
-      color: 'from-accent to-accent/50',
-    },
-    {
-      icon: Code2,
-      name: 'Codeforces',
-      username: '@nerdy_specs11',
-      link: 'https://codeforces.com/profile/nerdy_specs11',
-      color: 'from-secondary to-secondary/50',
-    },
-    {
-      icon: Code2,
-      name: 'LeetCode',
-      username: '@Sundram_21',
-      link: 'https://leetcode.com/Sundram_21',
-      color: 'from-primary via-accent to-secondary',
-    },
-  ];
-
-  const certifications = [
-    'Deep Learning Fundamentals (DeepLearning.TV)',
-    'Intro to Machine Learning (Kaggle)',
-    'Introduction to Zero Trust (Microsoft)',
-    'Postman API Fundamentals Student Expert',
-  ];
-
   return (
-    <section id="profiles" className="py-20 md:py-32 px-6 relative">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
-              Coding Profiles & Certifications
-            </span>
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Connect with me across platforms
-          </p>
-        </motion.div>
+    <section id="profiles" className="relative px-6 py-24 md:py-32">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeader
+          eyebrow="Online Presence"
+          title="Coding Profiles & Certifications"
+          description="Live coding handles, platform ratings, and certifications that reflect day-to-day problem solving and continuous learning."
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {profiles.map((profile, index) => (
-            <motion.a
-              key={profile.name}
-              href={profile.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group bg-card/30 backdrop-blur-md border border-border rounded-2xl p-6 hover:border-primary/50 hover:shadow-[0_0_30px_hsl(var(--primary)/0.2)] hover:-translate-y-2 transition-all duration-300"
-            >
-              <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${profile.color} mb-4 group-hover:scale-110 transition-transform`}>
-                <profile.icon size={24} className="text-white" />
+        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="grid gap-6 sm:grid-cols-2">
+            {CODING_PROFILES.map((profile, index) => {
+              const meta = PLATFORM_META[profile.platform as keyof typeof PLATFORM_META];
+
+              return (
+                <RevealOnScroll key={profile.platform} delay={index * 80}>
+                  <a
+                    href={profile.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-cursor="OPEN"
+                    className="group block rounded-[1.7rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1"
+                    style={{
+                      boxShadow: `0 18px 40px rgba(0,0,0,0.18)`,
+                    }}
+                  >
+                    <div
+                      className="inline-flex rounded-2xl p-3 transition-transform duration-300 group-hover:-translate-y-1"
+                      style={{ background: `${meta.color}22`, boxShadow: `0 0 22px ${meta.color}33` }}
+                    >
+                      <PlatformMark platform={profile.platform as keyof typeof PLATFORM_META} />
+                    </div>
+                    <div className="mt-5 flex items-start justify-between gap-3">
+                      <div>
+                        <h3 className="font-heading text-2xl font-semibold text-white">{profile.platform}</h3>
+                        <p className="mt-2 text-sm uppercase tracking-[0.18em] text-muted-foreground">{profile.handle}</p>
+                      </div>
+                      <span className="mt-1 h-2.5 w-2.5 rounded-full" style={{ background: meta.color, boxShadow: `0 0 16px ${meta.color}` }} />
+                    </div>
+                    {profile.rating ? (
+                      <div className="mt-6 flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3">
+                        <span className="text-sm text-slate-200">Rating {profile.rating}</span>
+                        <span
+                          className="rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em]"
+                          style={{ background: `${meta.color}20`, color: meta.color }}
+                        >
+                          {profile.badge}
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="mt-6 rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-slate-200">
+                        Open-source work and project shipping hub
+                      </div>
+                    )}
+                  </a>
+                </RevealOnScroll>
+              );
+            })}
+          </div>
+
+          <RevealOnScroll delay={220}>
+            <aside className="glass-card h-full rounded-[1.85rem] border border-white/10 p-7">
+              <p className="text-xs uppercase tracking-[0.24em] text-cyan-100/80">Certifications</p>
+              <h3 className="font-heading mt-4 text-3xl font-semibold text-white">Structured learning, kept practical.</h3>
+              <div className="mt-8 space-y-4">
+                {CERTIFICATIONS.map((certification) => (
+                  <div key={certification} className="flex gap-3 rounded-2xl border border-white/10 bg-slate-950/35 p-4">
+                    <CheckCircle2 size={18} className="mt-0.5 text-cyan-300" />
+                    <p className="text-sm leading-7 text-slate-200/90">{certification}</p>
+                  </div>
+                ))}
               </div>
-              <h3 className="text-lg font-semibold mb-1">{profile.name}</h3>
-              <p className="text-sm text-muted-foreground">{profile.username}</p>
-            </motion.a>
-          ))}
+            </aside>
+          </RevealOnScroll>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="bg-card/30 backdrop-blur-md border border-border rounded-2xl p-8"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 bg-gradient-to-br from-primary to-accent rounded-xl">
-              <Award size={24} className="text-white" />
-            </div>
-            <h3 className="text-2xl font-semibold">Certifications</h3>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {certifications.map((cert) => (
-              <div key={cert} className="flex items-start gap-3">
-                <CheckCircle2 size={20} className="text-primary mt-0.5 flex-shrink-0" />
-                <p className="text-muted-foreground">{cert}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );

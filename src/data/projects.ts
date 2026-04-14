@@ -1,0 +1,68 @@
+export const PROJECTS = [
+  {
+    id: "forkspace",
+    title: "ForkSpace",
+    subtitle: "Real-time Collaborative Coding Platform",
+    date: "March 2026",
+    description:
+      "Real-time collaborative coding platform with shared rooms, live cursors, synced execution and AI code review.",
+    bullets: [
+      "Built with React, Socket.IO, CodeMirror — shared rooms, live cursors, roles, synced execution supporting 50+ concurrent sessions with sub-100ms latency",
+      "Integrated Judge0 execution (C++/Python/JS), JWT auth, MongoDB persistence, Redis Pub/Sub for 99%+ reliability and seamless session recovery",
+      "Added AI-assisted code review pipeline for automated feedback on submitted code",
+    ],
+    tags: ["React", "Socket.IO", "Node.js", "Express", "MongoDB", "Redis", "CodeMirror"],
+    category: "fullstack",
+    featured: true,
+    github: "https://github.com/Sundramra3691",
+  },
+  {
+    id: "rexcan",
+    title: "ReXcan",
+    subtitle: "Invoice OCR & ERP Pipeline",
+    date: "November 2025",
+    description:
+      "Multi-stage OCR → NLP pipeline to extract, parse, and normalize structured fields from unstructured vendor invoices.",
+    bullets: [
+      "Designed multi-stage OCR → NLP pipeline extracting structured fields from 500+ unstructured vendor invoices, generating ERP-ready JSON/CSV",
+      "Built RESTful APIs with FastAPI/Node.js with per-field confidence scoring, deduplication logic, and human-in-the-loop React review interface",
+      "Implemented unit tests validating core parsing logic and invoice normalization",
+    ],
+    tags: ["FastAPI", "OCR", "LLMs", "Node.js", "React", "Python"],
+    category: "ml",
+    featured: true,
+    github: "https://github.com/Sundramra3691",
+  },
+  {
+    id: "hireable",
+    title: "Hireable — Job Portal",
+    subtitle: "Full-Stack Job Platform",
+    date: "April 2025",
+    description: "Responsive job portal with modular Node.js + MongoDB backend supporting 500+ users.",
+    bullets: [
+      "Designed and implemented modular Node.js/MongoDB backend for user auth, job postings, and end-to-end application workflows via JWT-secured RESTful APIs — 500+ users",
+      "Delivered server-side filtering, logo storage, and applicant data management, reducing query latency by 30%",
+      "Built responsive frontend with React + TypeScript, shadcn/ui, Tailwind, deployed on Vercel with CI/CD",
+    ],
+    tags: ["React", "TypeScript", "Vite", "shadcn/ui", "Node.js", "MongoDB", "Vercel"],
+    category: "fullstack",
+    featured: false,
+    github: "https://github.com/Sundramra3691",
+  },
+  {
+    id: "smart-scan",
+    title: "Smart-Scan — Object Detection + OCR",
+    subtitle: "CV & OCR System",
+    date: "October 2024",
+    description: "Low-latency Flask inference API for real-time YOLOv5 + EasyOCR processing with 90% accuracy.",
+    bullets: [
+      "Engineered low-latency Flask-based inference API for real-time YOLOv5 + EasyOCR processing (90% accuracy) with warm-up and async batching",
+      "Automated data pipeline (Scrapy/Selenium → Roboflow) ingesting 3000+ images; productionized evaluation dashboard on GRID 6.0",
+      "Trained and annotated models on Roboflow and Google Colab",
+    ],
+    tags: ["Python", "Flask", "YOLOv5", "EasyOCR", "Roboflow", "PyTorch"],
+    category: "ml",
+    featured: false,
+    github: "https://github.com/Sundramra3691",
+  },
+] as const;

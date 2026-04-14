@@ -1,89 +1,86 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { Briefcase } from 'lucide-react';
+import { useEffect, useRef, useState } from "react";
+import { Briefcase } from "lucide-react";
+import { EXPERIENCES } from "@/data/experiences";
+import { cn } from "@/lib/utils";
+import RevealOnScroll from "./RevealOnScroll";
+import { SectionHeader } from "./SectionHeader";
 
 export const Experience = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const sectionRef = useRef<HTMLElement>(null);
+  const [lineVisible, setLineVisible] = useState(false);
 
-  const experiences = [
-    {
-      role: 'Founder / Team Lead',
-      company: 'ML Pet-Health Startup',
-      location: 'NIT Raipur, India',
-      period: '2024 – Present',
-      description: 'Led product development for a smart collar with ML-based anomaly detection and mobile app integration. Awarded a ₹25K seed grant from NITRRIFIE; managed prototype, data collection and early deployment.',
-    },
-    {
-      role: 'Technical Executive',
-      company: 'Robotix Club',
-      location: 'NIT Raipur, India',
-      period: 'Sept 2023 – Present',
-      description: 'Led robotics projects including surface cleaning bot, smart helmet, and obstacle-avoiding robot. Implemented A* pathfinding in Python simulator and mentored juniors on prototyping.',
-    },
-  ];
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLineVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.22 },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="experience" className="py-24 md:py-40 px-6 relative">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-20"
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="inline-block mb-4"
-          >
-            <span className="px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
-              Professional Journey
-            </span>
-          </motion.div>
-          <h2 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
-              Work Experience
-            </span>
-          </h2>
-          <p className="text-muted-foreground text-xl max-w-2xl mx-auto leading-relaxed">
-            Building innovative solutions and leading high-impact teams
-          </p>
-        </motion.div>
+    <section ref={sectionRef} id="experience" className="relative px-6 py-24 md:py-32">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader
+          eyebrow="Professional Journey"
+          title="Work Experience"
+          description="Leading technical teams, building prototypes, and creating systems that can move from idea to real-world use."
+        />
 
         <div className="relative">
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-secondary" />
+          <div className="absolute bottom-0 left-5 top-0 w-px bg-white/8 md:left-1/2 md:-translate-x-1/2" />
+          {lineVisible ? (
+            <div className="timeline-line absolute left-5 top-0 w-px bg-gradient-to-b from-cyan-400 via-sky-300 to-violet-400 md:left-1/2 md:-translate-x-1/2" />
+          ) : null}
 
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={exp.role}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40, y: 20 }}
-              animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: index * 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className={`relative mb-12 ${
-                index % 2 === 0 ? 'md:pr-[50%]' : 'md:pl-[50%]'
-              }`}
+          {EXPERIENCES.map((experience, index) => (
+            <RevealOnScroll
+              key={experience.id}
+              delay={index * 80}
+              direction={index % 2 === 0 ? "left" : "right"}
+              className={cn("relative mb-12 md:mb-16", index % 2 === 0 ? "md:pr-[52%]" : "md:pl-[52%]")}
             >
-              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-full border-4 border-background flex items-center justify-center">
-                <Briefcase size={16} className="text-white" />
-              </div>
-
-              <div className="ml-16 md:ml-0 md:px-8">
-                <div className="bg-card/40 backdrop-blur-xl border border-border/50 rounded-3xl p-8 hover:border-primary/50 hover:shadow-[0_0_40px_hsl(var(--primary)/0.15)] transition-all duration-500">
-                  <div className="flex items-center gap-2 text-sm text-primary mb-3">
-                    <span className="font-semibold">{exp.period}</span>
-                  </div>
-                  <h3 className="text-2xl font-bold mb-2">{exp.role}</h3>
-                  <p className="text-muted-foreground mb-6">
-                    {exp.company} • {exp.location}
-                  </p>
-                  <p className="text-muted-foreground leading-relaxed text-base">
-                    {exp.description}
-                  </p>
+              <div className="absolute left-5 top-8 -translate-x-1/2 md:left-1/2">
+                <div
+                  className={cn(
+                    "flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/40 bg-slate-950 shadow-[0_0_30px_rgba(0,200,255,0.12)]",
+                    experience.duration.includes("Present") && "timeline-dot-active",
+                  )}
+                >
+                  <Briefcase size={16} className="text-cyan-200" />
                 </div>
               </div>
-            </motion.div>
+
+              <div className={cn("ml-14 md:ml-0", index % 2 === 0 ? "md:pr-10" : "md:pl-10")}>
+                <article className="glass-card rounded-[1.8rem] border border-white/10 p-8">
+                  <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                    <div>
+                      <p className="text-sm uppercase tracking-[0.22em] text-cyan-100/70">{experience.duration}</p>
+                      <h3 className="font-heading mt-3 text-2xl font-semibold text-white">{experience.role}</h3>
+                      <p className="mt-2 text-sm uppercase tracking-[0.18em] text-muted-foreground">
+                        {experience.org} • {experience.location}
+                      </p>
+                    </div>
+                    <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-muted-foreground">
+                      {experience.duration.includes("Present") ? "Present" : "Completed"}
+                    </span>
+                  </div>
+
+                  <p className="mt-6 text-sm leading-7 text-slate-200/90 md:text-base">{experience.description}</p>
+                </article>
+              </div>
+            </RevealOnScroll>
           ))}
         </div>
       </div>

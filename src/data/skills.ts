@@ -1,15 +1,16 @@
 export const SKILLS = {
-  languages: ["C++", "Python", "JavaScript", "TypeScript", "Java"],
-  webDev: ["React", "Node.js", "Express", "FastAPI", "Tailwind CSS", "shadcn/ui", "Vite", "HTML5", "CSS"],
-  databases: ["MongoDB", "PostgreSQL", "Redis"],
-  toolsTech: ["Socket.IO", "Docker", "Jest", "Postman", "Git", "GitHub", "Linux/CLI", "Vercel"],
-  aiMl: ["PyTorch", "scikit-learn", "YOLOv8", "OpenCV", "EasyOCR", "NLTK", "LLM APIs", "Roboflow"],
-  softSkills: ["Leadership", "Team Management", "Problem Solving", "Project Management", "Technical Mentoring"],
+  languages: ["C++", "C", "Python", "JavaScript", "TypeScript", "SQL"],
+  systems: ["Node.js", "Express", "FastAPI", "REST APIs", "WebSockets", "PostgreSQL", "MongoDB", "Redis", "Concurrency", "Rate Limiting"],
+  ai: ["RAG", "LLM integrations", "Structured outputs", "Validation", "AI agents", "Retrieval", "OCR pipelines", "Async AI workflows"],
+  tools: ["Docker", "Git", "GitHub Actions", "CI/CD", "Linux", "Postman", "Pytest", "Vitest", "ESLint"],
+  leadership: ["Technical mentoring", "Problem solving", "System design", "Execution", "Communication"],
 } as const;
 
 export const LANGUAGE_PROFICIENCY: Record<string, string> = {
-  "C++": "Primary DSA language",
-  Python: "ML/Scripting",
-  JavaScript: "Full-Stack",
-  TypeScript: "Full-Stack",
+  "C++": "Systems and DSA",
+  C: "Low-level fundamentals",
+  Python: "AI and scripting",
+  JavaScript: "Frontend and backend",
+  TypeScript: "Product engineering",
+  SQL: "Data modeling and queries",
 };

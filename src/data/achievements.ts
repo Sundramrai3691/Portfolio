@@ -1,35 +1,38 @@
 export const ACHIEVEMENTS = [
   {
     id: "cp",
-    title: "Competitive Programming",
+    title: "Competitive programming",
     icon: "code",
     description:
-      "CodeChef 3★ (max 1731) • Codeforces Pupil (max 1379) • LeetCode Knight (max 1886, Rank #1136 Weekly Contest 460)",
-    highlight: "1700+ problems solved across all platforms",
+      "LeetCode Knight, max rating 1904 • Codeforces Specialist, max rating 1406 • CodeChef 3-Star, max rating 1731.",
+    highlight: "1,500+ DSA problems solved across platforms",
   },
   {
     id: "seed",
-    title: "₹25K Seed Grant",
+    title: "₹25,000 seed grant",
     icon: "award",
     description:
-      "Awarded ₹25,000 seed grant by NITRRIFIE for ML-based pet-health startup (smart collar with anomaly detection)",
+      "Received a ₹25,000 seed grant for an ML-based pet-health startup focused on anomaly detection and early monitoring.",
   },
   {
-    id: "hackathon",
-    title: "Hackathon Achievements",
-    icon: "trophy",
-    description: "Finalist at Codeutsava 9.0 (NIT Raipur) & TOP 25 at 0 to 1 Hackathon, IIIT Delhi",
-  },
-  {
-    id: "caseops",
-    title: "Case Ops 3.0 Winner",
+    id: "ml-summer-school",
+    title: "Amazon ML Summer School 2026",
     icon: "star",
-    description: "Winner of Case Ops 3.0 Case Competition, NIT Raipur",
+    description:
+      "Selected for Amazon ML Summer School 2026, reflecting strong applied AI and engineering momentum.",
   },
   {
     id: "opensource",
-    title: "Open Source Contributor",
+    title: "Open-source impact",
     icon: "git-merge",
-    description: "Super Contributor — GSSoC '25 & Hacktoberfest '25",
+    description:
+      "10+ merged open-source pull requests through open-source programs and community contributions.",
+  },
+  {
+    id: "contest-469",
+    title: "LeetCode Contest 469",
+    icon: "trophy",
+    description:
+      "A strong contest performance that contributed to the Knight milestone and reinforced consistent problem-solving output.",
   },
 ] as const;

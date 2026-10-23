@@ -25,20 +25,31 @@ export const Footer = () => {
       <div className="mx-auto max-w-6xl">
         <div className="glass-card rounded-[2rem] border border-white/10 px-8 py-10 md:px-12 md:py-14">
           <p className="text-xs uppercase tracking-[0.28em] text-cyan-100/80">Contact</p>
-          <h2 className="font-heading mt-5 text-4xl font-semibold text-white md:text-6xl">Let&apos;s build something great.</h2>
+          <h2 className="font-heading mt-5 text-4xl font-semibold text-white md:text-6xl">Let&apos;s build something enduring.</h2>
           <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
-            Open to impactful full-stack builds, collaborative developer products, and ML-driven ideas that need both engineering and execution.
+            I work on systems, products, and AI workflows that need real-world reliability, thoughtful validation, and a clear engineering story.
           </p>
 
-          <button
-            type="button"
-            onClick={copyEmail}
-            className="mt-8 inline-flex items-center gap-3 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-5 py-3 text-sm font-medium text-cyan-100 transition-all hover:-translate-y-1 hover:bg-cyan-400/15 hover:shadow-[0_0_28px_rgba(0,200,255,0.2)]"
-            data-cursor="COPY"
-          >
-            <Mail size={18} />
-            {PERSONAL.email}
-          </button>
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <button
+              type="button"
+              onClick={copyEmail}
+              className="inline-flex items-center gap-3 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-5 py-3 text-sm font-medium text-cyan-100 transition-all hover:-translate-y-1 hover:bg-cyan-400/15 hover:shadow-[0_0_28px_rgba(0,200,255,0.2)]"
+              data-cursor="COPY"
+            >
+              <Mail size={18} />
+              {PERSONAL.email}
+            </button>
+            <a
+              href={PERSONAL.resume}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-medium text-white transition-all hover:-translate-y-1 hover:border-violet-400/40 hover:bg-violet-500/10"
+              data-cursor="OPEN"
+            >
+              View résumé
+            </a>
+          </div>
 
           <div className="mt-8 flex flex-wrap gap-4">
             {SOCIAL_LINKS.map((link) => (
@@ -57,7 +68,7 @@ export const Footer = () => {
           </div>
         </div>
 
-        <p className="mt-8 text-center text-sm text-muted-foreground">© 2026 Sundram Kumar Rai</p>
+        <p className="mt-8 text-center text-sm text-muted-foreground">© 2026 Sundram Rai</p>
       </div>
     </footer>
   );

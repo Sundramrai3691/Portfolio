@@ -1,4 +1,4 @@
-import { BrainCircuit, Boxes, Code2, Database, Sparkles, Wrench } from "lucide-react";
+import { BrainCircuit, Code2, Database, Rocket, Wrench } from "lucide-react";
 import { LANGUAGE_PROFICIENCY, SKILLS } from "@/data/skills";
 import RevealOnScroll from "./RevealOnScroll";
 import { SectionHeader } from "./SectionHeader";
@@ -9,48 +9,40 @@ const SKILL_CATEGORIES = [
     title: "Languages",
     icon: Code2,
     skills: SKILLS.languages,
-    glow: "rgba(0, 200, 255, 0.22)",
-    tint: "from-cyan-400/30 to-sky-500/20",
+    glow: "rgba(97, 225, 255, 0.24)",
+    tint: "from-cyan-400/30 to-indigo-500/20",
   },
   {
-    key: "webDev",
-    title: "Web Development",
-    icon: Boxes,
-    skills: SKILLS.webDev,
-    glow: "rgba(34, 211, 238, 0.16)",
-    tint: "from-sky-500/25 to-cyan-400/15",
-  },
-  {
-    key: "databases",
-    title: "Databases",
+    key: "systems",
+    title: "Backend & systems",
     icon: Database,
-    skills: SKILLS.databases,
-    glow: "rgba(16, 185, 129, 0.18)",
-    tint: "from-emerald-400/25 to-cyan-400/10",
+    skills: SKILLS.systems,
+    glow: "rgba(85, 241, 222, 0.2)",
+    tint: "from-emerald-400/20 to-cyan-500/15",
   },
   {
-    key: "toolsTech",
-    title: "Tools & Tech",
-    icon: Wrench,
-    skills: SKILLS.toolsTech,
-    glow: "rgba(123, 97, 255, 0.2)",
-    tint: "from-violet-500/25 to-cyan-400/10",
-  },
-  {
-    key: "aiMl",
-    title: "AI / ML",
+    key: "ai",
+    title: "AI engineering",
     icon: BrainCircuit,
-    skills: SKILLS.aiMl,
-    glow: "rgba(244, 114, 182, 0.18)",
-    tint: "from-fuchsia-500/25 to-violet-500/15",
+    skills: SKILLS.ai,
+    glow: "rgba(155, 114, 255, 0.22)",
+    tint: "from-violet-400/25 to-fuchsia-500/15",
   },
   {
-    key: "softSkills",
-    title: "Soft Skills",
-    icon: Sparkles,
-    skills: SKILLS.softSkills,
+    key: "tools",
+    title: "Engineering tools",
+    icon: Wrench,
+    skills: SKILLS.tools,
+    glow: "rgba(255, 117, 189, 0.18)",
+    tint: "from-rose-400/20 to-violet-500/15",
+  },
+  {
+    key: "leadership",
+    title: "Leadership",
+    icon: Rocket,
+    skills: SKILLS.leadership,
     glow: "rgba(250, 204, 21, 0.18)",
-    tint: "from-amber-300/25 to-orange-400/15",
+    tint: "from-amber-300/20 to-orange-500/15",
   },
 ] as const;
 
@@ -59,9 +51,9 @@ export const Skills = () => {
     <section id="skills" className="relative px-6 py-24 md:py-32">
       <div className="mx-auto max-w-7xl">
         <SectionHeader
-          eyebrow="Technical Expertise"
-          title="Technical Skills"
-          description="A practical stack for shipping full-stack systems, real-time collaboration, and ML-backed products without losing polish."
+          eyebrow="Technical depth"
+          title="Systems, AI, and product execution"
+          description="Backend software engineering with applied AI, disciplined validation, and the operational detail required to ship reliable systems."
         />
 
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -74,7 +66,7 @@ export const Skills = () => {
                 <div className="mt-5 flex items-start justify-between gap-4">
                   <h3 className="font-heading text-2xl font-semibold text-white">{category.title}</h3>
                   <span className="rounded-full border border-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
-                    {category.skills.length} Skills
+                    {category.skills.length}
                   </span>
                 </div>
                 <div className="mt-6 flex flex-wrap gap-3">

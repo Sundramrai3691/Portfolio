@@ -3,6 +3,7 @@ import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
 import { Skills } from '@/components/Skills';
 import { Projects } from '@/components/Projects';
+import { Systems, About } from '@/components/Systems';
 import { Experience } from '@/components/Experience';
 import { Achievements } from '@/components/Achievements';
 import { Profiles } from '@/components/Profiles';
@@ -15,8 +16,10 @@ const Index = () => {
       <Header />
       <main className="relative z-10">
         <Hero />
-        <Skills />
         <Projects />
+        <Systems />
+        <Skills />
+        <About />
         <Experience />
         <Achievements />
         <Profiles />

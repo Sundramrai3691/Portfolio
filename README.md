@@ -1,69 +1,46 @@
-# Sundram Kumar Rai — Portfolio
+# Sundram Rai — Portfolio
 
-Personal portfolio for Sundram (handle: `nerdy_specs`). Built with React + Vite. Content customized to match resume (projects, skills, achievements, experience).
+A custom interactive portfolio for Sundram Rai, built with React, Vite, Tailwind, Framer Motion, and React Three Fiber.
 
-🌐 **Live Website**: [Portfolio](https://sundram-rai.vercel.app/)
+🌐 Live: [Portfolio](https://sundram-rai.vercel.app/)
 
----
+## Overview
 
-## 📌 Overview
+This portfolio is designed around a dark, cinematic art direction and highlights:
 
-This is a sleek, responsive, and animated single-page portfolio showcasing:
+- Systems engineering and backend architecture
+- Applied AI and ML workflows
+- Real-time product work and collaborative tools
+- Competitive programming and verified technical depth
+- Product-oriented engineering execution
 
-- 🛠️ Projects (Hireable, DiagnoseAI, Smart-Scan, Farm-Guru)
-- 🏆 Achievements (CodeChef 3★, Codeforces Pupil, Hackathon wins)
-- 💼 Experience (Startup founder, Technical Executive roles)
-- 📚 Skills (Full-stack development, ML/CV, Competitive Programming)
-- 🌐 Contact and Social Links
+## Tech stack
 
----
+- React + Vite
+- Tailwind CSS
+- Framer Motion
+- React Three Fiber + Drei
+- Lucide React
+- Vercel deployment
 
-## 🚀 Tech Stack
-
-- **Framework**: React (Vite)
-- **Styling**: Tailwind CSS
-- **Icons**: Lucide React
-- **Deployment**: Vercel
-- **Other Tools**: ESLint, React Router
-
----
-
-## 🧠 Local Development
-
-Clone the repository and run the dev server:
+## Local development
 
 ```bash
-git clone <repository-url>
-cd portfolio
 npm install
 npm run dev
 ```
 
-The site should now be running at `http://localhost:5173/`.
+Then open the local Vite app in the browser.
 
----
+## Content sources
 
-## 🛠️ Customization
+The portfolio reads from typed data files in `src/data/` and reusable components in `src/components/`.
 
-You can update content by editing the files in `src/data/`. Each section is modular:
+## Author
 
-- **Personal Info** → `index.js` (PERSONAL object)
-- **Projects** → `projects.js`
-- **Skills** → `skills.js`
-- **Achievements** → `achievements.js`
-- **Experience** → `experiences.js`
-- **Academic** → `academic.js`
-- **Coding Profiles** → `codingProfiles.js`
+**Sundram Rai**
 
----
-
-## 🙋‍♂️ Author
-
-**Sundram Kumar Rai** (`nerdy_specs`)
-📧 [sundramrai4687@gmail.com](mailto:sundramrai4687@gmail.com)
-🔗 [LinkedIn](https://www.linkedin.com/in/sundram-rai3961)
-🐙 [GitHub](https://github.com/Sundramrai3691)
-
----
-
-> Designed & developed to showcase full-stack development skills and competitive programming achievements.
+- Email: [sundramrai4687@gmail.com](mailto:sundramrai4687@gmail.com)
+- GitHub: [github.com/Sundramrai3691](https://github.com/Sundramrai3691)
+- LinkedIn: [linkedin.com/in/sundram-rai3961](https://www.linkedin.com/in/sundram-rai3961)
+- Resume: [public/resume.pdf](./public/resume.pdf)

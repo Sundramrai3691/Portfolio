@@ -103,7 +103,7 @@ function ProjectCard({ project, index }: { project: (typeof PROJECTS)[number]; i
               className="flex-1 rounded-full border-white/10 bg-transparent text-white hover:border-cyan-400/40 hover:bg-cyan-400/10"
               data-cursor="OPEN"
             >
-              <a href={project.github} target="_blank" rel="noopener noreferrer">
+              <a href={project.liveUrl || project.github} target="_blank" rel="noopener noreferrer">
                 Open Project
                 <ExternalLink size={16} />
               </a>

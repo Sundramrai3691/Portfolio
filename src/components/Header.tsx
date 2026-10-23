@@ -5,11 +5,11 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 
 const NAV_LINKS = [
-  { name: "Skills", id: "skills" },
-  { name: "Projects", id: "projects" },
-  { name: "Experience", id: "experience" },
-  { name: "Achievements", id: "achievements" },
-  { name: "Profiles", id: "profiles" },
+  { name: "Selected work", id: "projects" },
+  { name: "Systems", id: "systems" },
+  { name: "About", id: "about" },
+  { name: "Résumé", id: "resume" },
+  { name: "Contact", id: "contact" },
 ];
 
 export const Header = () => {
@@ -34,11 +34,13 @@ export const Header = () => {
   useEffect(() => {
     const sectionIds = [
       "hero",
-      "skills",
       "projects",
+      "systems",
+      "about",
       "experience",
       "achievements",
       "profiles",
+      "resume",
       "contact",
     ];
     const sections = sectionIds

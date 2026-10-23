@@ -1,12 +1,21 @@
 export const EXPERIENCES = [
   {
-    id: "startup",
-    role: "Founder / Team Lead",
+    id: "peopleops-copilot",
+    role: "Project Lead",
+    org: "PeopleOps Copilot",
+    location: "Innovation Cell, NIT Raipur",
+    duration: "May 2026 – Aug 2026",
+    description:
+      "Led design and implementation of an AI-assisted PeopleOps workflow combining authorization checks, approval gates, and audit trails for sensitive operational decisions.",
+  },
+  {
+    id: "founder",
+    role: "Founder / Technical Lead",
     org: "ML Pet-Health Startup",
     location: "NIT Raipur, India",
     duration: "2024 – Present",
     description:
-      "Led product development for smart collar with ML-based anomaly detection and mobile app integration. Awarded ₹25K seed grant from NITRRIFIE; managed prototype, data collection and early deployment.",
+      "Worked on a smart pet-health prototype using anomaly detection and data-driven monitoring; secured a ₹25,000 seed grant and drove product validation through early prototype work.",
   },
   {
     id: "robotix",
@@ -15,15 +24,6 @@ export const EXPERIENCES = [
     location: "NIT Raipur, India",
     duration: "Sept 2023 – Present",
     description:
-      "Led robotics projects (Surface Cleaning Bot, Smart Helmet, Obstacle-Avoiding Robot). Implemented A* pathfinding in Python simulator and mentored juniors on prototyping.",
-  },
-  {
-    id: "technocracy",
-    role: "Executive",
-    org: "Technocracy (Technical Committee)",
-    location: "NIT Raipur, India",
-    duration: "Oct 2024 – Present",
-    description:
-      "Streamlined shortlisting for Vigyaan (50+ submissions), formulated problem statements, and oversaw technical assessments for the institute's technical committee.",
+      "Led robotics projects, mentored juniors, and built systems around prototyping, pathfinding, and practical engineering workflows in a team setting.",
   },
 ] as const;

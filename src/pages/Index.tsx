@@ -1,12 +1,12 @@
 ﻿import { Starfield } from "@/components/Starfield";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { Skills } from "@/components/Skills";
+import { Skills } from "@/components/CapabilityMap";
 import { Projects } from "@/components/Projects";
-import { Systems, About } from "@/components/Systems";
-import { Experience } from "@/components/Experience";
-import { Achievements } from "@/components/Achievements";
-import { Profiles } from "@/components/Profiles";
+import { Systems, About } from "@/components/EngineeringSystems";
+import { Experience } from "@/components/EditorialExperience";
+import { Achievements } from "@/components/EditorialAchievements";
+import { Profiles } from "@/components/EditorialProfiles";
 import { Footer } from "@/components/Footer";
 
 const Index = () => (
@@ -15,9 +15,9 @@ const Index = () => (
     <Header />
     <main className="relative z-10">
       <Hero />
-      <Achievements />
       <Projects />
       <Systems />
+      <Achievements />
       <Skills />
       <Experience />
       <About />

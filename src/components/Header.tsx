@@ -7,9 +7,11 @@ import { Button } from "./ui/button";
 const NAV_LINKS = [
   { name: "Selected work", id: "projects" },
   { name: "Systems", id: "systems" },
+  { name: "Achievements", id: "achievements" },
+  { name: "Expertise", id: "skills" },
+  { name: "Experience", id: "experience" },
   { name: "About", id: "about" },
   { name: "Résumé", id: "resume" },
-  { name: "Contact", id: "contact" },
 ];
 
 export const Header = () => {
@@ -36,9 +38,10 @@ export const Header = () => {
       "hero",
       "projects",
       "systems",
-      "about",
-      "experience",
       "achievements",
+      "skills",
+      "experience",
+      "about",
       "profiles",
       "resume",
       "contact",

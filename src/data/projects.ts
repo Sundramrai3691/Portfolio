@@ -4,7 +4,13 @@
     title: "ForkSpace",
     subtitle: "A room built for thinking together",
     description: "A real-time collaborative workspace for DSA practice, mock interviews, and mentoring, with synchronized editing and code execution in shared rooms.",
+    problem: "A coding interview stops being collaborative when every participant sees a different editor state, execution result, or session context.",
     result: "17.3 ms measured editing latency",
+    decisions: [
+      "Socket.IO rooms carry shared editor and presence events, with Driver and Navigator roles coordinating a session.",
+      "Redis uses an atomic Lua token bucket for shared rate limiting; room state and optional persistence have explicit fallbacks.",
+      "Execution is delegated to Judge0 or Piston, then hidden-test results and session reports return to the room.",
+    ],
     bullets: [
       "React, Node.js, Express, Socket.IO, and MongoDB power multi-user editing and coordinated code execution.",
       "Redis token-bucket rate limiting uses atomic Lua scripts to coordinate access under concurrency.",
@@ -23,7 +29,13 @@
     title: "RecallLoop",
     subtitle: "Learning measured by what sticks",
     description: "An adaptive learning platform centered on what learners can explain and apply, rather than the time they spend studying.",
+    problem: "A useful study loop needs to remember learner-owned evidence and turn assessment into a concrete next review, not an ungrounded answer generator.",
     result: "Evidence-grounded remediation",
+    decisions: [
+      "Express routes pass through controllers and domain services to PostgreSQL repositories, keeping persistence explicit.",
+      "Retrieval ranks stored real[] vectors with application-side cosine similarity and token overlap; this implementation does not use pgvector.",
+      "Optional model output is structured and validated; assessment and review planning remain deliberate, testable steps.",
+    ],
     bullets: [
       "Active recall and learner-state tracking feed deterministic review planning.",
       "Focused remediation uses evidence and structured checks to keep feedback grounded.",
@@ -42,7 +54,13 @@
     title: "ReXcan",
     subtitle: "From noisy invoices to usable data",
     description: "A document-processing pipeline that extracts, normalizes, and validates invoice fields for review and downstream systems.",
+    problem: "Invoice layouts and scans vary, so raw OCR text alone is not dependable enough for finance workflows.",
     result: "86% extraction accuracy · 2.56 invoices/s",
+    decisions: [
+      "A Node/Express API and Redis-backed workers coordinate jobs; the Python FastAPI service performs document extraction.",
+      "Text PDFs use pdfplumber before EasyOCR and Tesseract fallbacks; field heuristics and optional LLM fallback produce candidates.",
+      "Canonicalization, arithmetic and duplicate checks flag uncertain records for review, and corrections are recorded in an audit trail.",
+    ],
     bullets: [
       "FastAPI and Python orchestrate pdfplumber, EasyOCR, and Tesseract extraction stages.",
       "Validation, duplicate detection, and audit trails support human review.",
@@ -61,7 +79,13 @@
     title: "PeopleOps Copilot",
     subtitle: "Useful AI with deliberate boundaries",
     description: "An employee operations assistant connecting policy retrieval, controlled workforce analytics, and approval-gated actions.",
+    problem: "People operations needs assistance that can cite policy and help with routine work without turning sensitive access into an unrestricted agent action.",
     result: "Role-aware · approval-gated · auditable",
+    decisions: [
+      "BM25 policy retrieval returns source and section evidence; the assistant works over a synthetic policy corpus.",
+      "Headcount analytics use a bounded, fixed parameterized query instead of free-form model-generated SQL.",
+      "Leave requests are role-checked, remain pending manager approval, and are written with balance and audit updates in a database transaction.",
+    ],
     bullets: [
       "Policy retrieval returns source attribution; access is role-aware.",
       "Analytics use validated, fixed parameterized headcount queries.",

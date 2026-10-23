@@ -1,7 +1,7 @@
 ﻿export const PERSONAL = {
   name: "Sundram Rai",
   handle: "sundramrai",
-  tagline: "Real-time software. Reliable backends. Applied intelligence.",
+  tagline: "Real-time systems. Reliable backends. Applied intelligence.",
   intro: "I'm Sundram Rai, an engineering student at NIT Raipur building software products where algorithms, infrastructure, and AI meet.",
   email: "sundramrai4687@gmail.com",
   github: "https://github.com/Sundramrai3691",

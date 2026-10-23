@@ -1,4 +1,4 @@
-import { ArrowRight, BrainCircuit, BriefcaseBusiness, Database, GraduationCap, ShieldCheck, Sparkles } from "lucide-react";
+﻿import { ArrowRight, BrainCircuit, BriefcaseBusiness, Database, GraduationCap, ShieldCheck, Sparkles } from "lucide-react";
 import { PERSONAL } from "@/data";
 import RevealOnScroll from "./RevealOnScroll";
 import { SectionHeader } from "./SectionHeader";
@@ -112,7 +112,7 @@ export const About = () => {
             </p>
             <div id="resume" className="rounded-[1.6rem] border border-white/10 bg-white/[0.03] p-6">
               <p className="text-xs uppercase tracking-[0.26em] text-cyan-100/80">Resume</p>
-              <p className="mt-3 text-lg font-medium text-white">Available for product engineering, applied AI, and backend systems work.</p>
+              <p className="mt-3 text-lg font-medium text-white">A concise record of my engineering work, education, and contact details.</p>
               <a
                 href={PERSONAL.resume}
                 target="_blank"

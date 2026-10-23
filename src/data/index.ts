@@ -1,4 +1,4 @@
-export const PERSONAL = {
+﻿export const PERSONAL = {
   name: "Sundram Rai",
   handle: "sundramrai",
   tagline: "Real-time software. Reliable backends. Applied intelligence.",
@@ -17,7 +17,7 @@ export const PERSONAL = {
     degree: "B.Tech in Electrical Engineering",
     cgpa: "8.86/10",
     graduationYear: "2027",
-    duration: "2023 – 2027",
+    duration: "2023–2027",
   },
 } as const;
 

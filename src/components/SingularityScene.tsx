@@ -1,90 +1,113 @@
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Line } from "@react-three/drei";
-import { useMemo, useRef } from "react";
-import type { Group } from "three";
+﻿import { Canvas, useFrame } from "@react-three/fiber";
+import { Component, useEffect, useMemo, useRef, useState, type ErrorInfo, type ReactNode } from "react";
+import { BufferGeometry, Vector3, type Group } from "three";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-function OrbitalCore() {
+class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  componentDidCatch(error: Error, info: ErrorInfo) { console.warn("The 3D hero scene could not be rendered.", error, info); }
+  render() { return this.state.failed ? <StaticSingularity /> : this.props.children; }
+}
+
+function StaticSingularity() {
+  return <div className="scene-fallback" role="img" aria-label="Abstract orbital sculpture with an iridescent core" />;
+}
+
+function OrbitalCore({ reduced }: { reduced: boolean }) {
   const groupRef = useRef<Group>(null);
+  const pointer = useRef({ x: 0, y: 0 });
+  const points = useMemo(() => Array.from({ length: 97 }, (_, i): [number, number, number] => {
+    const angle = i / 96 * Math.PI * 2;
+    const radius = 1.56 + Math.sin(angle * 3) * 0.08;
+    return [Math.cos(angle) * radius, Math.sin(angle) * 0.48, Math.sin(angle * 1.4) * 0.24];
+  }), []);
+  const orbitGeometry = useMemo(
+    () => new BufferGeometry().setFromPoints(points.map((point) => new Vector3(...point))),
+    [points],
+  );
 
-  const points = useMemo(() => {
-    const positions: [number, number, number][] = [];
-
-    for (let i = 0; i < 180; i += 1) {
-      const angle = (i / 180) * Math.PI * 2;
-      const radius = 1.25 + (i % 7) * 0.08;
-      positions.push([
-        Math.cos(angle) * radius,
-        Math.sin(angle) * radius * 0.4,
-        Math.sin(angle) * 0.9,
-      ]);
-    }
-
-    return positions;
-  }, []);
-
-  useFrame((state) => {
-    if (!groupRef.current) {
-      return;
-    }
-
-    groupRef.current.rotation.y = state.clock.elapsedTime * 0.18;
-    groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.7) * 0.35;
+  useFrame((state, delta) => {
+    if (!groupRef.current || reduced) return;
+    const { x, y } = state.pointer;
+    pointer.current.x += (x * 0.19 - pointer.current.x) * Math.min(delta * 2.2, 1);
+    pointer.current.y += (y * 0.14 - pointer.current.y) * Math.min(delta * 2.2, 1);
+    groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.42) * 0.045;
+    groupRef.current.rotation.y += delta * 0.075;
+    groupRef.current.rotation.x += (pointer.current.y + Math.sin(state.clock.elapsedTime * 0.22) * 0.035 - groupRef.current.rotation.x) * Math.min(delta, 1);
+    groupRef.current.rotation.z += (pointer.current.x * 0.12 - groupRef.current.rotation.z) * Math.min(delta, 1);
   });
 
   return (
     <group ref={groupRef}>
-      <Float speed={1.25} rotationIntensity={0.35} floatIntensity={0.75}>
-        <mesh>
-          <icosahedronGeometry args={[1.05, 2]} />
-          <meshPhysicalMaterial
-            color="#f3f1ff"
-            emissive="#9b72ff"
-            emissiveIntensity={0.75}
-            roughness={0.18}
-            metalness={0.7}
-            transparent
-            opacity={0.95}
-            transmission={0.35}
-            thickness={1.2}
-          />
-        </mesh>
-      </Float>
-
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[1.8, 0.035, 16, 200]} />
-        <meshStandardMaterial color="#7dd7ff" emissive="#55f1de" emissiveIntensity={0.9} />
+      <mesh>
+        <icosahedronGeometry args={[0.92, 4]} />
+        <meshPhysicalMaterial color="#c8c2df" emissive="#321b66" emissiveIntensity={0.36} roughness={0.13} metalness={0.78} clearcoat={1} clearcoatRoughness={0.08} iridescence={0.88} iridescenceIOR={1.7} iridescenceThicknessRange={[140, 520]} />
       </mesh>
-
-      <mesh rotation={[0.25, 0.8, 0.4]}>
-        <torusGeometry args={[2.2, 0.03, 16, 220]} />
-        <meshStandardMaterial color="#be9cff" emissive="#9b72ff" emissiveIntensity={0.8} />
+      <mesh scale={0.56}>
+        <icosahedronGeometry args={[0.92, 3]} />
+        <meshBasicMaterial color="#c0fff7" toneMapped={false} transparent opacity={0.24} />
       </mesh>
-
-      <Line points={points} color="#a8ffd5" lineWidth={0.8} transparent opacity={0.7} />
-
+      <mesh rotation={[Math.PI / 2.35, 0.2, 0.4]}>
+        <torusGeometry args={[1.43, 0.018, 8, 180, Math.PI * 1.62]} />
+        <meshBasicMaterial color="#9b72ff" transparent opacity={0.76} toneMapped={false} />
+      </mesh>
+      <mesh rotation={[0.18, 0.82, 1.08]}>
+        <torusGeometry args={[1.76, 0.009, 6, 180, Math.PI * 1.64]} />
+        <meshBasicMaterial color="#55f1de" transparent opacity={0.62} toneMapped={false} />
+      </mesh>
+      <lineLoop geometry={orbitGeometry}>
+        <lineBasicMaterial color="#e0dcff" transparent opacity={0.36} />
+      </lineLoop>
       <group rotation={[0.9, 0.1, 0.4]}>
-        {Array.from({ length: 8 }).map((_, index) => (
-          <mesh key={index} position={[Math.cos(index * 0.8) * 1.6, Math.sin(index * 1.3) * 1, (index - 4) * 0.18]}>
-            <sphereGeometry args={[0.06, 12, 12]} />
-            <meshStandardMaterial color={index % 2 === 0 ? "#55f1de" : "#9b72ff"} emissive={index % 2 === 0 ? "#55f1de" : "#9b72ff"} emissiveIntensity={1.5} />
-          </mesh>
-        ))}
+        {Array.from({ length: 6 }, (_, i) => {
+          const angle = (i / 6) * Math.PI * 2;
+          return <mesh key={i} position={[Math.cos(angle) * 1.62, Math.sin(angle * 1.7) * 0.55, Math.sin(angle) * 0.72]}>
+            <sphereGeometry args={[i % 2 ? 0.025 : 0.038, 10, 10]} />
+            <meshBasicMaterial color={i % 2 ? "#55f1de" : "#ff75bd"} toneMapped={false} />
+          </mesh>;
+        })}
       </group>
     </group>
   );
 }
 
 export function SingularityScene() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const container = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(false);
+  const [staticMode, setStaticMode] = useState(prefersReducedMotion);
+
+  useEffect(() => {
+    const compact = window.matchMedia("(max-width: 720px), (pointer: coarse)");
+    const updateCompact = () => setStaticMode(prefersReducedMotion || compact.matches);
+    updateCompact();
+    compact.addEventListener("change", updateCompact);
+    return () => compact.removeEventListener("change", updateCompact);
+  }, [prefersReducedMotion]);
+
+  useEffect(() => {
+    const node = container.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(([entry]) => setActive(entry.isIntersecting && document.visibilityState === "visible"), { rootMargin: "120px" });
+    const onVisibility = () => setActive(document.visibilityState === "visible" && node.getBoundingClientRect().bottom > 0 && node.getBoundingClientRect().top < window.innerHeight);
+    observer.observe(node);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => { observer.disconnect(); document.removeEventListener("visibilitychange", onVisibility); };
+  }, [staticMode]);
+
+  if (staticMode) return <StaticSingularity />;
   return (
-    <div className="relative aspect-[1/1.1] w-full overflow-hidden rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_30%_20%,rgba(155,114,255,0.2),transparent_30%),radial-gradient(circle_at_70%_70%,rgba(85,241,222,0.15),transparent_30%),rgba(9,10,18,0.9)] shadow-[0_20px_60px_rgba(7,10,20,0.7)]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1),transparent_55%)]" />
-      <Canvas camera={{ position: [0, 0, 4.2], fov: 42 }} dpr={[1, 1.6]}>
-        <ambientLight intensity={0.72} />
-        <directionalLight position={[2, 2, 3]} intensity={1.5} color="#d6d8ff" />
-        <pointLight position={[-2, -1, 2]} intensity={1.5} color="#55f1de" />
-        <pointLight position={[2, 1, -2]} intensity={1.4} color="#9b72ff" />
-        <OrbitalCore />
-      </Canvas>
+    <div ref={container} className="singularity-canvas" aria-hidden="true">
+      <SceneBoundary>
+        <Canvas camera={{ position: [0, 0, 4.7], fov: 39 }} dpr={[1, 1.25]} frameloop={active ? "always" : "never"} gl={{ alpha: true, antialias: true, powerPreference: "low-power" }}>
+          <ambientLight intensity={0.48} />
+          <directionalLight position={[2, 3, 3]} intensity={1.45} color="#f5efff" />
+          <pointLight position={[-2, -1, 2]} intensity={2.2} color="#55f1de" />
+          <pointLight position={[2, 1, -2]} intensity={2.5} color="#9b72ff" />
+          <OrbitalCore reduced={prefersReducedMotion} />
+        </Canvas>
+      </SceneBoundary>
     </div>
   );
 }

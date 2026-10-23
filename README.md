@@ -1,46 +1,38 @@
-# Sundram Rai — Portfolio
+﻿# Sundram Rai — Systems & AI Engineer
 
-A custom interactive portfolio for Sundram Rai, built with React, Vite, Tailwind, Framer Motion, and React Three Fiber.
+A custom portfolio built with React, Vite, Tailwind, Framer Motion, Three.js, and React Three Fiber. The visual system pairs a restrained chromatic-noir palette with an interactive procedural orbital sculpture and editorial project studies.
 
-🌐 Live: [Portfolio](https://sundram-rai.vercel.app/)
+Live site: [sundram-rai.vercel.app](https://sundram-rai.vercel.app/)
 
-## Overview
-
-This portfolio is designed around a dark, cinematic art direction and highlights:
-
-- Systems engineering and backend architecture
-- Applied AI and ML workflows
-- Real-time product work and collaborative tools
-- Competitive programming and verified technical depth
-- Product-oriented engineering execution
-
-## Tech stack
-
-- React + Vite
-- Tailwind CSS
-- Framer Motion
-- React Three Fiber + Drei
-- Lucide React
-- Vercel deployment
-
-## Local development
+## Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then open the local Vite app in the browser.
+## Content and assets
 
-## Content sources
+- Portfolio facts and links live in `src/data/`.
+- Flagship project descriptions and repository URLs are in `src/data/projects.ts`.
+- The resume is served from `public/resume.pdf`.
+- Project screenshot paths are reserved under `public/images/projects/` (`forkspace.webp`, `recallloop.webp`, `rexcan.webp`, and `peopleops-copilot.webp`). No genuine project screenshots were present in the repository or task attachments when this redesign was implemented. Until supplied, the gallery uses original abstract system studies, clearly labeled as such; it does not present them as application captures.
 
-The portfolio reads from typed data files in `src/data/` and reusable components in `src/components/`.
+## Design notes
 
-## Author
+The hero uses a low-poly iridescent core, incomplete orbital rings, sparse signal points, and damped pointer response. It falls back to an art-directed static graphic for reduced motion and small/touch devices, pauses when outside the viewport, and is lazy-loaded. The text reveal borrows the masked-heading idea; the liquid-metal, glass, and portal references informed the material, depth, and orbit language without embedding third-party scenes or demos. Project compositions use real repository content and asymmetrical layouts rather than simulated product screens.
 
-**Sundram Rai**
+## Checks
 
-- Email: [sundramrai4687@gmail.com](mailto:sundramrai4687@gmail.com)
-- GitHub: [github.com/Sundramrai3691](https://github.com/Sundramrai3691)
-- LinkedIn: [linkedin.com/in/sundram-rai3961](https://www.linkedin.com/in/sundram-rai3961)
-- Resume: [public/resume.pdf](./public/resume.pdf)
+```bash
+npm run lint
+npm run build
+```
+
+## Reference adaptations
+
+- **Spline: Reeded liquid glass.** Inspired the sculpture’s selective reflected highlights and layered depth; no community scene was embedded.
+- **Shader Lab: Liquid Metal and Glass.** Informed the iridescent procedural core and restrained reflective material, using local geometry instead of importing a model or demo gallery.
+- **Spline: Reactive Orb.** Informed the damped pointer tilt on the hero object.
+- **React Bits: Masked Heading.** Informed the one-time clipped, staggered headline reveal. Particle text was intentionally not stacked on top.
+- **pmndrs: Portal Shapes.** Informed the framed apertures and spatial shift between project studies; no external scene is loaded.

@@ -1,249 +1,49 @@
-import { useEffect, useState, type MouseEvent } from "react";
+﻿import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Code2, ExternalLink, Github, Linkedin, MapPin } from "lucide-react";
-import { PERSONAL, HERO_STATS } from "@/data";
-import { useCounter } from "@/hooks/useCounter";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { Button } from "./ui/button";
-import { SingularityScene } from "./SingularityScene";
+import { ArrowDown, ArrowRight, ExternalLink, Github, Linkedin } from "lucide-react";
+import { PERSONAL } from "@/data";
 
-function StatCard({
-  value,
-  prefix = "",
-  suffix = "",
-  label,
-}: {
-  value: number;
-  prefix?: string;
-  suffix?: string;
-  label: string;
-}) {
-  const count = useCounter(value);
+const SingularityScene = lazy(() => import("./SingularityScene").then((module) => ({ default: module.SingularityScene })));
 
-  return (
-    <div className="hero-stat-card relative bg-white/[0.035] px-5 py-5">
-      <p className="font-heading bg-gradient-to-r from-cyan-300 via-cyan-100 to-violet-300 bg-clip-text text-2xl font-bold text-transparent md:text-3xl">
-        {prefix}
-        {count}
-        {suffix}
-      </p>
-      <p className="mt-2 text-xs uppercase tracking-[0.24em] text-muted-foreground md:text-sm">{label}</p>
-    </div>
-  );
-}
-
-export const Hero = () => {
-  const prefersReducedMotion = usePrefersReducedMotion();
-  const [typedHeading, setTypedHeading] = useState(prefersReducedMotion ? "THINK IN SYSTEMS." : "");
-  const [showCursor, setShowCursor] = useState(!prefersReducedMotion);
-
-  const socialLinks = [
-    { icon: Github, href: PERSONAL.github, label: "GitHub" },
-    { icon: Linkedin, href: PERSONAL.linkedin, label: "LinkedIn" },
-    { icon: Code2, href: PERSONAL.leetcode, label: "LeetCode" },
-  ];
-
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      setTypedHeading("THINK IN SYSTEMS.");
-      setShowCursor(false);
-      return;
-    }
-
-    let index = 0;
-    let timeoutId = 0;
-    const headline = "THINK IN SYSTEMS.";
-    const interval = window.setInterval(() => {
-      index += 1;
-      setTypedHeading(headline.slice(0, index));
-
-      if (index >= headline.length) {
-        window.clearInterval(interval);
-        timeoutId = window.setTimeout(() => setShowCursor(false), 500);
-      }
-    }, 55);
-
-    return () => {
-      window.clearInterval(interval);
-      window.clearTimeout(timeoutId);
-    };
-  }, [prefersReducedMotion]);
-
-  const handleRippleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    const button = event.currentTarget;
-    const ripple = document.createElement("span");
-    const rect = button.getBoundingClientRect();
-
-    ripple.style.cssText = `
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.45);
-      left: ${event.clientX - rect.left - 2}px;
-      top: ${event.clientY - rect.top - 2}px;
-      animation: ripple 0.6s ease-out forwards;
-      pointer-events: none;
-    `;
-
-    button.style.position = "relative";
-    button.style.overflow = "hidden";
-    button.appendChild(ripple);
-    window.setTimeout(() => ripple.remove(), 600);
-  };
-
-  return (
-    <section id="hero" className="hero-bg relative flex min-h-screen items-center overflow-hidden px-6 pb-10 pt-24">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(155,114,255,0.16),transparent_34%),radial-gradient(circle_at_80%_20%,rgba(85,241,222,0.12),transparent_22%),linear-gradient(to_bottom,transparent,rgba(2,6,23,0.72),rgba(2,6,23,1))]" />
-      <div className="pointer-events-none absolute -left-16 top-24 h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl" />
-      <div className="pointer-events-none absolute right-0 top-32 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
-
-      <div className="relative z-10 mx-auto w-full max-w-7xl">
-        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}>
-          <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] uppercase tracking-[0.32em] text-cyan-100/80 backdrop-blur-xl">
-            <span>INDEPENDENT ENGINEER / SYSTEMS & AI</span>
-          </div>
+export const Hero = () => (
+  <section id="hero" className="hero-shell relative flex min-h-[min(900px,100svh)] items-center overflow-hidden px-6 pb-12 pt-28 md:px-10 lg:px-16">
+    <div className="hero-atmosphere" aria-hidden="true" />
+    <div className="hero-gridline" aria-hidden="true" />
+    <div className="relative z-10 mx-auto grid w-full max-w-[1500px] items-center gap-3 lg:grid-cols-[1.12fr_0.88fr]">
+      <div className="hero-copy relative z-10">
+        <motion.p className="eyebrow mb-7" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <span className="signal-dot" /> Independent engineer <span className="eyebrow-slash">/</span> Systems &amp; AI
+        </motion.p>
+        <motion.h1 className="hero-title" initial="hidden" animate="show" variants={{ hidden: {}, show: { transition: { staggerChildren: 0.13 } } }}>
+          <span className="hero-line-wrap"><motion.span className="hero-line" variants={{ hidden: { y: "110%" }, show: { y: 0, transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] } } }}>I build things</motion.span></span>
+          <span className="hero-line-wrap"><motion.span className="hero-line hero-line-accent" variants={{ hidden: { y: "110%" }, show: { y: 0, transition: { duration: 0.95, ease: [0.22, 1, 0.36, 1] } } }}>that think in</motion.span></span>
+          <span className="hero-line-wrap"><motion.span className="hero-line hero-line-last" variants={{ hidden: { y: "110%" }, show: { y: 0, transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } } }}>systems<span className="hero-period">.</span></motion.span></span>
+        </motion.h1>
+        <motion.div className="hero-intro" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.62, duration: 0.65 }}>
+          <p className="hero-tagline">{PERSONAL.tagline}</p>
+          <p className="hero-description">I&apos;m <strong>{PERSONAL.name}</strong>, an engineering student at NIT Raipur building software products where algorithms, infrastructure, and AI meet.</p>
         </motion.div>
-
-        <div className="grid items-center gap-12 lg:grid-cols-[1.08fr_0.92fr]">
-          <div className="text-center lg:text-left">
-            <motion.h1
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.82, delay: 0.15 }}
-              className="font-heading text-[clamp(3.5rem,7vw,7rem)] font-black tracking-[-0.06em] text-white"
-            >
-              <span className="block text-white">I BUILD THINGS THAT</span>
-              <span className="block bg-gradient-to-r from-white via-cyan-100 to-violet-200 bg-clip-text text-transparent">
-                {typedHeading || "THINK IN SYSTEMS."}
-                {showCursor ? <span className="type-cursor ml-1 inline-block text-cyan-300">|</span> : null}
-              </span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.25 }}
-              className="mt-6 max-w-2xl text-lg leading-8 text-cyan-100/80 md:text-[1.45rem]"
-            >
-              {PERSONAL.tagline}
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.35 }}
-              className="mt-4 max-w-xl text-base leading-7 text-muted-foreground md:text-lg"
-            >
-              {PERSONAL.intro}
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.45 }}
-              className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:items-start"
-            >
-              <Button
-                size="lg"
-                className="group rounded-full bg-cyan-400 px-6 text-slate-950 transition-all hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(0,200,255,0.35)]"
-                onClick={(event) => {
-                  handleRippleClick(event);
-                  document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                data-cursor="OPEN"
-              >
-                Explore selected work
-                <ArrowRight className="transition-transform group-hover:translate-x-1" size={18} />
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="rounded-full border-white/15 bg-white/[0.03] text-white transition-all hover:-translate-y-1 hover:border-cyan-400/50 hover:bg-cyan-400/10"
-              >
-                <a href={PERSONAL.github} target="_blank" rel="noopener noreferrer" data-cursor="OPEN">
-                  GitHub
-                </a>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="rounded-full border-white/15 bg-white/[0.03] text-white transition-all hover:-translate-y-1 hover:border-violet-400/50 hover:bg-violet-500/10"
-              >
-                <a href={PERSONAL.resume} target="_blank" rel="noopener noreferrer" data-cursor="OPEN">
-                  Résumé
-                  <ExternalLink className="ml-2 inline-block h-4 w-4" />
-                </a>
-              </Button>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.55 }}
-              className="mt-8 overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-[0_18px_60px_rgba(3,8,20,0.35)] backdrop-blur-xl"
-            >
-              <div className="grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
-                {HERO_STATS.map((stat) => (
-                  <StatCard
-                    key={stat.label}
-                    value={stat.value}
-                    prefix={stat.prefix}
-                    suffix={stat.suffix}
-                    label={stat.label}
-                  />
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-8 flex flex-wrap items-center justify-center gap-4 lg:justify-start"
-            >
-              {socialLinks.map((social, index) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.7 + index * 0.08 }}
-                  className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-muted-foreground backdrop-blur-sm transition-all hover:-translate-y-1 hover:border-cyan-400/30 hover:text-white"
-                  aria-label={social.label}
-                  data-cursor="OPEN"
-                >
-                  <social.icon size={18} className="text-cyan-300" />
-                  <span>{social.label}</span>
-                </motion.a>
-              ))}
-            </motion.div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="pointer-events-none absolute inset-x-10 top-8 h-28 rounded-full bg-cyan-400/15 blur-3xl" />
-            <SingularityScene />
-            <div className="mt-6 flex flex-wrap items-center gap-3 text-left">
-              <div className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-slate-200">
-                <MapPin size={15} className="text-cyan-300" />
-                {PERSONAL.location}
-              </div>
-              <div className="rounded-full border border-violet-400/30 bg-violet-500/10 px-4 py-2 text-xs uppercase tracking-[0.22em] text-violet-100">
-                NIT Raipur
-              </div>
-            </div>
-          </motion.div>
-        </div>
+        <motion.div className="hero-actions" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.78, duration: 0.6 }}>
+          <a className="action-primary" href="#projects">Explore selected work <ArrowRight size={17} /></a>
+          <a className="action-text" href={PERSONAL.github} target="_blank" rel="noreferrer">GitHub <ExternalLink size={13} /></a>
+          <a className="action-text" href={PERSONAL.resume} target="_blank" rel="noreferrer">Résumé <ExternalLink size={13} /></a>
+        </motion.div>
+        <motion.div className="hero-byline" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.05, duration: 0.7 }}>
+          <span className="hero-name">{PERSONAL.name}</span><span className="hero-byline-rule" />
+          <a href={PERSONAL.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile"><Linkedin size={15} /></a>
+          <a href={PERSONAL.github} target="_blank" rel="noreferrer" aria-label="GitHub profile"><Github size={15} /></a>
+          <span className="hero-location">Raipur, IN</span>
+        </motion.div>
       </div>
-    </section>
-  );
-};
+      <motion.div className="hero-object-wrap" initial={{ opacity: 0, scale: 0.88, y: 24 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ delay: 0.3, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}>
+        <div className="object-index" aria-hidden="true"><span>FIG. 01</span><span>COMPUTATIONAL SINGULARITY</span></div>
+        <div className="object-halo" aria-hidden="true" />
+        <Suspense fallback={<div className="scene-fallback" aria-label="Abstract orbital sculpture" />}><SingularityScene /></Suspense>
+        <div className="object-coordinate object-coordinate-top" aria-hidden="true">N 21°14′ / E 81°38′</div>
+        <div className="object-coordinate object-coordinate-bottom" aria-hidden="true"><span>CORE SIGNAL</span><span>01 — 04</span></div>
+      </motion.div>
+    </div>
+    <a className="hero-scroll" href="#achievements"><span>Scroll to explore</span><ArrowDown size={15} /></a>
+    <div className="hero-side-index" aria-hidden="true">PORTFOLIO · 2026</div>
+  </section>
+);

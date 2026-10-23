@@ -60,7 +60,7 @@ export const Profiles = () => {
                       </div>
                       <span className="mt-1 h-2.5 w-2.5 rounded-full" style={{ background: meta.color, boxShadow: `0 0 16px ${meta.color}` }} />
                     </div>
-                    {profile.rating ? (
+                    {"rating" in profile && profile.rating ? (
                       <div className="mt-6 flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3">
                         <span className="text-sm text-slate-200">Rating {profile.rating}</span>
                         <span

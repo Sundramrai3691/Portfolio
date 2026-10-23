@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { PERSONAL } from "@/data";
 import { cn } from "@/lib/utils";
@@ -77,7 +77,7 @@ export const Header = () => {
         style={{
           width: `${progress}%`,
           height: 2,
-          background: "linear-gradient(90deg, #00C8FF, #7B61FF)",
+          background: "linear-gradient(90deg, #55F1DE, #9B72FF)",
         }}
         className="fixed left-0 top-0 z-[100] transition-none"
       />

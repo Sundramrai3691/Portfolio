@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import { Award, Code2, GitMerge, Star, Trophy } from "lucide-react";
 import { ACHIEVEMENTS } from "@/data/achievements";
 import { useCounter } from "@/hooks/useCounter";
@@ -102,10 +102,10 @@ export const Achievements = () => {
                         <p className="mt-5 text-sm uppercase tracking-[0.2em] text-cyan-100/80">{achievement.highlight}</p>
                       </div>
                       <div className="grid flex-1 gap-4 sm:grid-cols-2">
-                        <StatTile label="LeetCode Rating" value={1886} badge="Knight" color="#FFD700" start={statsVisible} />
-                        <StatTile label="Codeforces Rating" value={1379} badge="Pupil" color="#7EB4F7" start={statsVisible} />
-                        <StatTile label="CodeChef Rating" value={1731} badge="3★" color="#F7C137" start={statsVisible} />
-                        <StatTile label="Problems Solved" value={1700} suffix="+" start={statsVisible} color="#00C8FF" />
+                        <StatTile label="LeetCode Rating" value={1904} badge="Knight" color="#FFD700" start={statsVisible} />
+                        <StatTile label="Codeforces Rating" value={1406} badge="Specialist" color="#7EB4F7" start={statsVisible} />
+                        <StatTile label="CodeChef Rating" value={1731} badge="3-Star" color="#F7C137" start={statsVisible} />
+                        <StatTile label="Problems Solved" value={1500} suffix="+" start={statsVisible} color="#00C8FF" />
                       </div>
                     </div>
                   </article>

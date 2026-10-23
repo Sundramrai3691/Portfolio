@@ -1,136 +1,52 @@
-import { useRef, type CSSProperties, type MouseEvent } from "react";
-import { ExternalLink, Github, Sparkles } from "lucide-react";
-import { PROJECTS } from "@/data/projects";
-import { Button } from "./ui/button";
-import RevealOnScroll from "./RevealOnScroll";
+﻿import { useState, type CSSProperties } from "react";
+import { ArrowDownRight, ArrowUpRight, Github } from "lucide-react";
+import { motion } from "framer-motion";
+import { ADDITIONAL_PROJECTS, PROJECTS } from "@/data/projects";
 import { SectionHeader } from "./SectionHeader";
 
-function ProjectCard({ project, index }: { project: (typeof PROJECTS)[number]; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
-    const card = cardRef.current;
-    if (!card) {
-      return;
-    }
-
-    const rect = card.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-
-    card.style.transform = `perspective(800px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-4px)`;
-    card.style.background = `radial-gradient(circle at ${event.clientX - rect.left}px ${event.clientY - rect.top}px, rgba(0,200,255,0.07), transparent 60%), var(--card-bg)`;
-  };
-
-  const handleMouseLeave = () => {
-    const card = cardRef.current;
-    if (!card) {
-      return;
-    }
-
-    card.style.transform = "perspective(800px) rotateY(0deg) rotateX(0deg) translateY(0)";
-    card.style.background = "var(--card-bg)";
-  };
-
+function ProjectStudy({ project, index }: { project: (typeof PROJECTS)[number]; index: number }) {
+  const [imageFailed, setImageFailed] = useState(false);
+  const ready = Boolean(project.image) && !imageFailed;
   return (
-    <RevealOnScroll delay={index * 80}>
-      <article
-        ref={cardRef}
-        data-cursor="VIEW →"
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={
-          {
-            transition: "transform 0.15s ease, box-shadow 0.3s ease",
-            "--card-bg": "rgba(255,255,255,0.03)",
-          } as CSSProperties & { "--card-bg": string }
-        }
-        className="project-card group relative h-full overflow-hidden rounded-[1.85rem] border border-white/5 p-8 hover:border-cyan-400/40 hover:shadow-[0_0_30px_rgba(0,200,255,0.1)]"
-      >
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.03),transparent_48%)]" />
-        <div className="relative h-full">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <div className="mb-3 flex items-center gap-2">
-                <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-cyan-100/75">
-                  {project.category}
-                </span>
-                {project.featured ? (
-                  <span className="inline-flex items-center gap-1 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-cyan-100">
-                    <Sparkles size={12} />
-                    Featured
-                  </span>
-                ) : null}
-              </div>
-              <h3 className="font-heading text-2xl font-semibold text-white">{project.title}</h3>
-              <p className="mt-2 text-sm uppercase tracking-[0.2em] text-muted-foreground">{project.subtitle}</p>
-            </div>
-            <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-muted-foreground">{project.date}</span>
-          </div>
-
-          <p className="mt-6 text-sm leading-7 text-muted-foreground md:text-base">{project.description}</p>
-
-          <ul className="mt-6 space-y-3">
-            {project.bullets.map((bullet) => (
-              <li key={bullet} className="flex gap-3 text-sm leading-7 text-slate-200/90">
-                <span className="mt-2 h-2 w-2 rounded-full bg-cyan-300" />
-                <span>{bullet}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-7 flex flex-wrap gap-2.5">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="tech-tag rounded-full border border-white/8 bg-slate-950/55 px-3 py-1.5 text-xs uppercase tracking-[0.16em] text-slate-200"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button asChild className="flex-1 rounded-full bg-cyan-400 text-slate-950 hover:bg-cyan-300" data-cursor="OPEN">
-              <a href={project.github} target="_blank" rel="noopener noreferrer">
-                <Github size={16} />
-                View Code
-              </a>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              className="flex-1 rounded-full border-white/10 bg-transparent text-white hover:border-cyan-400/40 hover:bg-cyan-400/10"
-              data-cursor="OPEN"
-            >
-              <a href={project.liveUrl || project.github} target="_blank" rel="noopener noreferrer">
-                Open Project
-                <ExternalLink size={16} />
-              </a>
-            </Button>
-          </div>
-        </div>
-      </article>
-    </RevealOnScroll>
+    <div className={`project-art project-art-${project.visual}`} style={{ "--project-index": index } as CSSProperties}>
+      {ready && project.image && <img src={project.image} alt={project.imageAlt} loading="lazy" onError={() => setImageFailed(true)} />}
+      {imageFailed && <div className="project-artwork" aria-hidden="true">
+        {project.visual === "sync" && <><span className="sync-ring sync-ring-a"/><span className="sync-ring sync-ring-b"/><span className="sync-node sync-node-a"/><span className="sync-node sync-node-b"/><span className="sync-node sync-node-c"/><span className="sync-link"/><span className="sync-core">17.3<small>ms</small></span></>}
+        {project.visual === "recall" && <><span className="recall-orbit recall-orbit-a"/><span className="recall-orbit recall-orbit-b"/><span className="recall-node recall-node-a"/><span className="recall-node recall-node-b"/><span className="recall-node recall-node-c"/><span className="recall-core">R<span>↻</span></span></>}
+        {project.visual === "extract" && <><span className="extract-sheet extract-sheet-a"/><span className="extract-sheet extract-sheet-b"/><span className="extract-beam"/><span className="extract-row extract-row-a"/><span className="extract-row extract-row-b"/><span className="extract-row extract-row-c"/><span className="extract-stamp">86%</span></>}
+        {project.visual === "workflow" && <><span className="workflow-node workflow-node-a">RETRIEVE</span><span className="workflow-node workflow-node-b">ANALYZE</span><span className="workflow-node workflow-node-c">APPROVE</span><span className="workflow-line workflow-line-a"/><span className="workflow-line workflow-line-b"/><span className="workflow-core">H</span></>}
+      </div>}
+      <div className="project-art-meta"><span>PROJECT STUDY / {String(index + 1).padStart(2, "0")}</span><span>{ready ? "APPLICATION CAPTURE" : "SYSTEM STUDY"}</span></div>
+      <div className="project-art-outline" aria-hidden="true" />
+    </div>
   );
 }
 
-export const Projects = () => {
-  return (
-    <section id="projects" className="relative px-6 py-24 md:py-32">
-      <div className="mx-auto max-w-7xl">
-        <SectionHeader
-          eyebrow="Portfolio Showcase"
-          title="Projects"
-          description="A selection of systems built across collaboration, OCR pipelines, full-stack product engineering, and computer vision."
-        />
-
-        <div className="grid gap-6 md:grid-cols-2">
-          {PROJECTS.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
-          ))}
-        </div>
+export const Projects = () => (
+  <section id="projects" className="projects-section section-frame">
+    <div className="mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16">
+      <SectionHeader eyebrow="Selected work / 01—04" title="Systems with a pulse." description="Real products, built around the hard parts: coordination, evidence, extraction, and trust." />
+      <div className="project-list">
+        {PROJECTS.map((project, index) => (
+          <motion.article key={project.id} className={`project-row ${index % 2 ? "project-row-reverse" : ""}`} initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.16 }} transition={{ duration: 0.65, ease: [0.2, 0.75, 0.25, 1] }}>
+            <ProjectStudy project={project} index={index} />
+            <div className="project-copy">
+              <p className="project-kicker"><span>0{index + 1}</span><i />{project.category}</p>
+              <h3>{project.title}<span className="project-title-mark">↗</span></h3>
+              <p className="project-subtitle">{project.subtitle}</p>
+              <p className="project-description">{project.description}</p>
+              <p className="project-result"><span className="result-mark">✳</span>{project.result}</p>
+              <ul className="project-details">{project.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>
+              <div className="project-tags">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+              <div className="project-links">
+                <a href={project.github} target="_blank" rel="noreferrer"><Github size={16} /> Repository <ArrowUpRight size={14} /></a>
+                {project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">Live project <ArrowUpRight size={14} /></a>}
+              </div>
+            </div>
+          </motion.article>
+        ))}
       </div>
-    </section>
-  );
-};
+      <div className="archive-line"><span>ALSO IN THE WORKSHOP</span>{ADDITIONAL_PROJECTS.map((project) => <a key={project.id} href={project.github} target="_blank" rel="noreferrer"><strong>{project.title}</strong><span>{project.description}</span><ArrowDownRight size={17} /></a>)}</div>
+    </div>
+  </section>
+);

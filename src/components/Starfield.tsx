@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+﻿import { useEffect, useRef } from "react";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 export const Starfield = () => {
@@ -7,68 +7,55 @@ export const Starfield = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) {
-      return;
-    }
+    const context = canvas?.getContext("2d", { alpha: true });
+    if (!canvas || !context) return;
 
-    const context = canvas.getContext("2d");
-    if (!context) {
-      return;
-    }
-
-    const setCanvasSize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    const size = () => {
+      const ratio = Math.min(window.devicePixelRatio || 1, 1.25);
+      canvas.width = Math.round(window.innerWidth * ratio);
+      canvas.height = Math.round(window.innerHeight * ratio);
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
     };
-
-    setCanvasSize();
-    window.addEventListener("resize", setCanvasSize);
-
-    const starCount = prefersReducedMotion ? 70 : 140;
-    const stars = Array.from({ length: starCount }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 1.8 + 0.3,
-      speed: Math.random() * 0.35 + 0.05,
-      opacity: Math.random() * 0.45 + 0.15,
+    size();
+    window.addEventListener("resize", size, { passive: true });
+    const stars = Array.from({ length: 48 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      size: Math.random() * 1.15 + 0.25,
+      speed: Math.random() * 0.12 + 0.025,
+      opacity: Math.random() * 0.24 + 0.08,
     }));
-
-    const renderFrame = () => {
-      context.clearRect(0, 0, canvas.width, canvas.height);
-
+    const draw = () => {
+      context.clearRect(0, 0, window.innerWidth, window.innerHeight);
       stars.forEach((star) => {
-        context.fillStyle = `rgba(172, 223, 255, ${star.opacity})`;
+        context.fillStyle = `rgba(195, 205, 255, ${star.opacity})`;
         context.beginPath();
         context.arc(star.x, star.y, star.size, 0, Math.PI * 2);
         context.fill();
-
         if (!prefersReducedMotion) {
           star.y += star.speed;
-          if (star.y > canvas.height) {
-            star.y = 0;
-            star.x = Math.random() * canvas.width;
-          }
+          if (star.y > window.innerHeight) { star.y = 0; star.x = Math.random() * window.innerWidth; }
         }
       });
     };
-
-    let frameId = 0;
+    let frame = 0;
+    const stop = () => { window.cancelAnimationFrame(frame); frame = 0; };
     const animate = () => {
-      renderFrame();
-      frameId = window.requestAnimationFrame(animate);
+      draw();
+      if (!prefersReducedMotion && document.visibilityState === "visible") frame = window.requestAnimationFrame(animate);
     };
-
-    if (prefersReducedMotion) {
-      renderFrame();
-    } else {
-      animate();
-    }
-
+    const visibility = () => { stop(); if (document.visibilityState === "visible") animate(); };
+    draw();
+    if (!prefersReducedMotion && document.visibilityState === "visible") frame = window.requestAnimationFrame(animate);
+    document.addEventListener("visibilitychange", visibility);
     return () => {
-      window.removeEventListener("resize", setCanvasSize);
-      window.cancelAnimationFrame(frameId);
+      stop();
+      document.removeEventListener("visibilitychange", visibility);
+      window.removeEventListener("resize", size);
     };
   }, [prefersReducedMotion]);
 
-  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none opacity-60" style={{ zIndex: 0 }} />;
+  return <canvas ref={canvasRef} aria-hidden="true" className="fixed inset-0 pointer-events-none opacity-45" style={{ zIndex: 0 }} />;
 };

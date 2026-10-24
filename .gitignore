@@ -23,3 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 .env
+.codex-tmp-npm-cache/
+.codex-tmp-playwright/

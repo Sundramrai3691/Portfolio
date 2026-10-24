@@ -3,7 +3,7 @@ export const SKILLS = {
   systems: ["Node.js", "Express", "FastAPI", "REST APIs", "WebSockets", "PostgreSQL", "MongoDB", "Redis", "Concurrency", "Rate Limiting"],
   ai: ["RAG", "LLM integrations", "Structured outputs", "Validation", "AI agents", "Retrieval", "OCR pipelines", "Async AI workflows"],
   tools: ["Docker", "Git", "GitHub Actions", "CI/CD", "Linux", "Postman", "Pytest", "Vitest", "ESLint"],
-  leadership: ["Technical mentoring", "Problem solving", "System design", "Execution", "Communication"],
+  fundamentals: ["Data structures & algorithms", "Concurrency and shared state", "Relational data modeling", "API boundaries and validation", "Failure handling and observability"],
 } as const;
 
 export const LANGUAGE_PROFICIENCY: Record<string, string> = {

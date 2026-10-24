@@ -10,7 +10,7 @@
   codeforces: "https://codeforces.com/profile/Nerdy_specs11",
   codechef: "https://www.codechef.com/users/nerdy_specs",
   codolio: "https://codolio.com/profile/nerd_specs3691",
-  resume: "/resume.pdf",
+  resume: "/Sundram_Kumar_Rai_SDE_AI_resume.pdf",
   location: "NIT Raipur, Chhattisgarh",
   education: {
     institute: "National Institute of Technology, Raipur",
@@ -29,7 +29,7 @@ export const CERTIFICATIONS = [
 ] as const;
 
 export const HERO_STATS = [
-  { value: 1500, suffix: "+", label: "DSA Problems" },
+  { value: 2000, suffix: "+", label: "DSA Problems" },
   { value: 1904, suffix: "", label: "LeetCode Max" },
   { value: 10, suffix: "+", label: "Merged PRs" },
   { value: 25, prefix: "₹", suffix: "K", label: "Seed Grant" },

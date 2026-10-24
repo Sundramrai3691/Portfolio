@@ -105,7 +105,7 @@ export const Achievements = () => {
                         <StatTile label="LeetCode Rating" value={1904} badge="Knight" color="#FFD700" start={statsVisible} />
                         <StatTile label="Codeforces Rating" value={1406} badge="Specialist" color="#7EB4F7" start={statsVisible} />
                         <StatTile label="CodeChef Rating" value={1731} badge="3-Star" color="#F7C137" start={statsVisible} />
-                        <StatTile label="Problems Solved" value={1500} suffix="+" start={statsVisible} color="#00C8FF" />
+                        <StatTile label="Problems Solved" value={2000} suffix="+" start={statsVisible} color="#00C8FF" />
                       </div>
                     </div>
                   </article>

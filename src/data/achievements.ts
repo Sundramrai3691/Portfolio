@@ -4,7 +4,7 @@
     title: "Competitive programming",
     icon: "code",
     description: "LeetCode Knight · Codeforces Specialist · CodeChef 3-Star.",
-    highlight: "1500+ DSA problems solved",
+    highlight: "2,000+ DSA problems solved",
   },
   {
     id: "seed",

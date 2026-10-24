@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <radialGradient id="atmosphere" cx="0" cy="0" r="1" gradientTransform="matrix(665 282 -425 1000 1067 28)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#35265E"/>
+      <stop offset=".52" stop-color="#111420"/>
+      <stop offset="1" stop-color="#090A12"/>
+    </radialGradient>
+    <linearGradient id="signal" x1="190" y1="430" x2="1014" y2="170" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9B72FF" stop-opacity="0"/>
+      <stop offset=".48" stop-color="#9B72FF" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#55F1DE" stop-opacity=".65"/>
+    </linearGradient>
+    <linearGradient id="name" x1="120" y1="230" x2="760" y2="380" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF"/>
+      <stop offset="1" stop-color="#B8F8EE"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#atmosphere)" d="M0 0h1200v630H0z"/>
+  <path d="M710 630V480c0-54 44-98 98-98h71c49 0 89-40 89-89V0M877 630V505c0-55 44-99 99-99h42c59 0 106-48 106-106V92" stroke="url(#signal)" stroke-width="1.5"/>
+  <circle cx="808" cy="382" r="4" fill="#55F1DE"/>
+  <circle cx="1070" cy="402" r="4" fill="#9B72FF"/>
+  <path d="M82 88h1036M82 542h1036" stroke="#E4E0F3" stroke-opacity=".13"/>
+  <text x="88" y="145" fill="#9CEFE4" font-family="Arial,sans-serif" font-size="17" letter-spacing="4">INDEPENDENT ENGINEER  /  SYSTEMS &amp; AI</text>
+  <text x="80" y="305" fill="url(#name)" font-family="Georgia,serif" font-size="108" letter-spacing="-7">Sundram Rai</text>
+  <text x="90" y="372" fill="#D1CDDD" font-family="Arial,sans-serif" font-size="25" letter-spacing=".4">Real-time systems. Reliable backends. Applied AI.</text>
+  <text x="90" y="485" fill="#9A96A8" font-family="Arial,sans-serif" font-size="16" letter-spacing="3">RAIPUR, INDIA</text>
+  <text x="1110" y="485" fill="#9A96A8" font-family="Arial,sans-serif" font-size="16" text-anchor="end" letter-spacing="2">SUNDRAM-RAI.VERCEL.APP</text>
+</svg>

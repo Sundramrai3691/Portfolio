@@ -6,7 +6,6 @@ import { Button } from "./ui/button";
 
 const NAV_LINKS = [
   { name: "Selected work", id: "projects" },
-  { name: "Systems", id: "systems" },
   { name: "Achievements", id: "achievements" },
   { name: "Expertise", id: "skills" },
   { name: "Experience", id: "experience" },
@@ -97,7 +96,9 @@ export const Header = () => {
           {NAV_LINKS.map((link) => (
             <a
               key={link.id}
-              href={`#${link.id}`}
+              href={link.id === "resume" ? PERSONAL.resume : `#${link.id}`}
+              target={link.id === "resume" ? "_blank" : undefined}
+              rel={link.id === "resume" ? "noreferrer" : undefined}
               className={cn(
                 "nav-link text-sm font-medium tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground",
                 activeSection === link.id && "active text-white",
@@ -136,7 +137,9 @@ export const Header = () => {
             {NAV_LINKS.map((link) => (
               <a
                 key={link.id}
-                href={`#${link.id}`}
+                href={link.id === "resume" ? PERSONAL.resume : `#${link.id}`}
+                target={link.id === "resume" ? "_blank" : undefined}
+                rel={link.id === "resume" ? "noreferrer" : undefined}
                 onClick={closeMobileMenu}
                 className={cn(
                   "nav-link block w-full text-left text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground",

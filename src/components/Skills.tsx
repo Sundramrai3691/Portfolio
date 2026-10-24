@@ -38,9 +38,9 @@ const SKILL_CATEGORIES = [
   },
   {
     key: "leadership",
-    title: "Leadership",
+    title: "Relevant computer science fundamentals",
     icon: Rocket,
-    skills: SKILLS.leadership,
+    skills: SKILLS.fundamentals,
     glow: "rgba(250, 204, 21, 0.18)",
     tint: "from-amber-300/20 to-orange-500/15",
   },

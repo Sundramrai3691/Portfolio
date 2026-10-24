@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { SectionHeader } from "./SectionHeader";
-import { PERSONAL } from "@/data";
 
 const SYSTEMS = [
   {
@@ -99,7 +98,7 @@ export const Systems = () => {
       const id = (event as CustomEvent<string>).detail;
       if (SYSTEMS.some((system) => system.id === id)) {
         setActiveId(id as typeof activeId);
-        document.getElementById("systems")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        document.getElementById("systems")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
       }
     };
     window.addEventListener("portfolio:select-system", onSelect);
@@ -120,19 +119,19 @@ export const Systems = () => {
 
   return <section ref={sectionRef} id="systems" className="systems-section section-frame" aria-labelledby="systems-heading">
     <div className="mx-auto max-w-[1320px] px-6 md:px-10 lg:px-16">
-      <SectionHeader eyebrow="Systems under the surface" title="The decisions below the interface." description="Each project is shaped by an engineering constraint: coordination, grounded evidence, document quality, or controlled action. Select a system, then move through its real data flow." />
-      <div className="systems-tabs" role="tablist" aria-label="Choose a system">
-        {SYSTEMS.map((system, index) => <button key={system.id} id={`systems-${system.id}`} type="button" role="tab" aria-selected={activeId === system.id} aria-controls="systems-panel" onClick={() => setActiveId(system.id)}>
+      <SectionHeader eyebrow="ENGINEERING ANATOMY" title="How each system moves." titleId="systems-heading" />
+      <div className="systems-tabs" role="group" aria-label="Choose a system">
+        {SYSTEMS.map((system, index) => <button key={system.id} id={`systems-${system.id}`} type="button" aria-pressed={activeId === system.id} aria-controls="systems-panel" onClick={() => setActiveId(system.id)}>
           <span>0{index + 1}</span>{system.title}<i aria-hidden="true">↗</i>
         </button>)}
       </div>
-      <article className={`systems-panel tone-${activeSystem.color}`} id="systems-panel" role="tabpanel" aria-labelledby={`systems-${activeId}`}>
+      <article className={`systems-panel tone-${activeSystem.color}`} id="systems-panel" aria-labelledby={`systems-${activeId}`}>
         <div className="systems-intro">
           <div><p className="systems-lens">{activeSystem.lens}</p><h3>{activeSystem.title}</h3></div>
           <p>{activeSystem.intro}</p>
         </div>
-        {paths && <div className="systems-path-tabs" role="tablist" aria-label="PeopleOps workflow route">
-          {paths.map((path, index) => <button key={path.name} type="button" role="tab" aria-selected={activePath === index} onClick={() => { setActivePath(index); setActiveStage(0); }}>{path.name}</button>)}
+        {paths && <div className="systems-path-tabs" role="group" aria-label="PeopleOps workflow route">
+          {paths.map((path, index) => <button key={path.name} type="button" aria-pressed={activePath === index} onClick={() => { setActivePath(index); setActiveStage(0); }}>{path.name}</button>)}
         </div>}
         <div className="systems-flow-layout">
           <div ref={flowRef} className="systems-flow" style={{ "--flow-index": activeStage } as React.CSSProperties}>
@@ -162,7 +161,6 @@ export const About = () => <section id="about" className="about-section section-
   <div className="mx-auto grid max-w-[1320px] gap-12 px-6 md:px-10 lg:grid-cols-[1.1fr_.9fr] lg:px-16">
     <div><SectionHeader eyebrow="About Sundram" title="Built from the inside out." description="I’m Sundram Rai, an Electrical Engineering student at NIT Raipur. I like taking a product from its first useful idea down to the state, data, and failure cases that make it hold up." align="left" />
       <p className="about-copy">I work across backend systems and applied intelligence: shared real-time state, retrieval grounded in evidence, document processing, and workflows with deliberate permission boundaries. My instinct is to make the important behavior visible, testable, and useful to the person on the other end.</p>
-      <a className="about-resume" href={PERSONAL.resume} target="_blank" rel="noreferrer">Open résumé <span aria-hidden="true">↗</span></a>
     </div>
     <div className="about-education"><p className="systems-lens">EDUCATION / 2023—2027</p><h3>National Institute of Technology, Raipur</h3><p>B.Tech · Electrical Engineering</p><div><strong>8.86</strong><span>/ 10 CGPA</span></div><p className="education-footnote">Engineering perspective grounded in algorithms, systems, and hands-on product work.</p></div>
   </div>

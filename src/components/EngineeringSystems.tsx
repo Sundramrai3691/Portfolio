@@ -1,5 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { SectionHeader } from "./SectionHeader";
+
+const TechText = lazy(() => import("./TechText"));
+const ScrambledText = lazy(() => import("./ScrambledText"));
 
 const SYSTEMS = [
   {
@@ -119,6 +122,9 @@ export const Systems = () => {
 
   return <section ref={sectionRef} id="systems" className="systems-section section-frame" aria-labelledby="systems-heading">
     <div className="mx-auto max-w-[1320px] px-6 md:px-10 lg:px-16">
+      <div className="systems-tech-title" aria-hidden="true">
+        <Suspense fallback={<span>SYSTEMS</span>}><TechText text="SYSTEMS" fontWeight={650} fontSize={108} letterSpacing={-0.07} color="rgba(214, 209, 235, 0.72)" accentColor="#55f1de" align="left" reach={160} softness={0.65} dashLength={4} dashGap={2} strokeWidth={1.3} reveal="letter" specks={8} selection={false} labels={false} draggable={false} bounce={0} sweep={false} speed={0.7} clickKick={false} intro="none" guides={false} className="systems-tech-canvas" /></Suspense>
+      </div>
       <SectionHeader eyebrow="ENGINEERING ANATOMY" title="How each system moves." titleId="systems-heading" />
       <div className="systems-tabs" role="group" aria-label="Choose a system">
         {SYSTEMS.map((system, index) => <button key={system.id} id={`systems-${system.id}`} type="button" aria-pressed={activeId === system.id} aria-controls="systems-panel" onClick={() => setActiveId(system.id)}>
@@ -159,8 +165,12 @@ export const Systems = () => {
 
 export const About = () => <section id="about" className="about-section section-frame">
   <div className="mx-auto grid max-w-[1320px] gap-12 px-6 md:px-10 lg:grid-cols-[1.1fr_.9fr] lg:px-16">
-    <div><SectionHeader eyebrow="About Sundram" title="Built from the inside out." description="I’m Sundram Rai, an Electrical Engineering student at NIT Raipur. I like taking a product from its first useful idea down to the state, data, and failure cases that make it hold up." align="left" />
-      <p className="about-copy">I work across backend systems and applied intelligence: shared real-time state, retrieval grounded in evidence, document processing, and workflows with deliberate permission boundaries. My instinct is to make the important behavior visible, testable, and useful to the person on the other end.</p>
+    <div>
+      <SectionHeader eyebrow="About Sundram" title="Built from the inside out." description="I&apos;m an Electrical Engineering student at NIT Raipur, building backend systems, real-time tools, and AI workflows." align="left" />
+      <p className="about-copy">I like making the important behavior visible, testable, and useful to the person on the other end.</p>
+      <Suspense fallback={<p className="about-side-quest">Current side quest: convincing edge cases to behave.</p>}>
+        <ScrambledText className="about-side-quest" effect="scramble" radius={54} strength={0.35} trail={0.35} duration={0.8} speed={0.6} scrambleChars=".:" clickBurst={false} intro>Current side quest: convincing edge cases to behave.</ScrambledText>
+      </Suspense>
     </div>
     <div className="about-education"><p className="systems-lens">EDUCATION / 2023—2027</p><h3>National Institute of Technology, Raipur</h3><p>B.Tech · Electrical Engineering</p><div><strong>8.86</strong><span>/ 10 CGPA</span></div><p className="education-footnote">Engineering perspective grounded in algorithms, systems, and hands-on product work.</p></div>
   </div>

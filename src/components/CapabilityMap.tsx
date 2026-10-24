@@ -10,9 +10,22 @@ const CAPABILITIES = [
 ] as const;
 
 const CAPABILITY_LINKS: Record<string, readonly [string, string][]> = {
-  Redis: [["ForkSpace", "forkspace"]],
-  PostgreSQL: [["RecallLoop", "recallloop"]],
+  Python: [["ReXcan", "rexcan"], ["PeopleOps", "peopleops-copilot"]],
+  TypeScript: [["RecallLoop", "recallloop"]],
+  "Node.js": [["ForkSpace", "forkspace"], ["RecallLoop", "recallloop"]],
+  Express: [["RecallLoop", "recallloop"]],
+  FastAPI: [["ReXcan", "rexcan"], ["PeopleOps", "peopleops-copilot"]],
+  WebSockets: [["ForkSpace", "forkspace"]],
+  PostgreSQL: [["RecallLoop", "recallloop"], ["PeopleOps", "peopleops-copilot"]],
+  MongoDB: [["ForkSpace", "forkspace"]],
+  Redis: [["ForkSpace", "forkspace"], ["ReXcan", "rexcan"]],
+  "Rate Limiting": [["ForkSpace", "forkspace"]],
+  Retrieval: [["RecallLoop", "recallloop"], ["PeopleOps", "peopleops-copilot"]],
+  "LLM integrations": [["RecallLoop", "recallloop"], ["ReXcan", "rexcan"]],
+  "Structured outputs": [["RecallLoop", "recallloop"]],
   Validation: [["ReXcan", "rexcan"], ["PeopleOps", "peopleops-copilot"]],
+  "AI agents": [["PeopleOps", "peopleops-copilot"]],
+  "OCR pipelines": [["ReXcan", "rexcan"]],
 };
 
 export const Skills = () => <section id="skills" className="capability-section section-frame">

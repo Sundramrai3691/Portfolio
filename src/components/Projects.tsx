@@ -12,13 +12,14 @@ const stackGlyphs: Record<string, LucideIcon> = {
 };
 
 function ProjectCaseStudy({ project }: { project: (typeof PROJECTS)[number] }) {
-  return <figure className={`project-art project-art-${project.visual} ${project.id === "forkspace" ? "project-art-screenshot" : ""}`}>
-    {project.id === "forkspace"
-      ? <img className="project-home-screenshot" src="/projects/forkspace-home.png" alt="ForkSpace homepage showing its shared room, code practice, and interview workflow." loading="lazy" width="1400" height="1050" />
-      : <ProjectVisual projectId={project.id} />}
+  if (project.id === "forkspace") return <figure className="project-art project-art-screenshot project-art-forkspace">
+    <img src="/projects/forkspace-home.png" alt="ForkSpace homepage showing its shared room, code practice, and interview workflow." loading="lazy" decoding="async" />
+  </figure>;
+
+  return <figure className={`project-art project-art-${project.visual}`}>
+    <ProjectVisual projectId={project.id} />
   </figure>;
 }
-
 export const Projects = () => (
   <section id="projects" className="projects-section section-frame">
     <div className="mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16">

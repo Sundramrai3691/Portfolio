@@ -1,5 +1,4 @@
 import { Code2, Github, Linkedin, Mail } from "lucide-react";
-import { toast } from "@/components/ui/sonner";
 import { PERSONAL } from "@/data";
 
 const SOCIAL_LINKS = [
@@ -9,15 +8,6 @@ const SOCIAL_LINKS = [
 ];
 
 export const Footer = () => {
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(PERSONAL.email);
-      toast.success("Email copied to clipboard");
-    } catch {
-      toast.error("Could not copy email");
-    }
-  };
-
   return (
     <footer id="contact" className="relative px-6 pb-12 pt-24">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent" />
@@ -31,15 +21,14 @@ export const Footer = () => {
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <button
-              type="button"
-              onClick={copyEmail}
+            <a
+              href={`mailto:${PERSONAL.email}`}
               className="inline-flex items-center gap-3 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-5 py-3 text-sm font-medium text-cyan-100 transition-all hover:-translate-y-1 hover:bg-cyan-400/15 hover:shadow-[0_0_28px_rgba(0,200,255,0.2)]"
-              data-cursor="COPY"
+              data-cursor="OPEN"
             >
               <Mail size={18} />
               {PERSONAL.email}
-            </button>
+            </a>
             <a
               href={PERSONAL.resume}
               target="_blank"

@@ -1,18 +1,54 @@
+import { lazy, Suspense, useState } from "react";
 import { ArrowDown, ArrowRight, ExternalLink } from "lucide-react";
 import { PERSONAL } from "@/data";
 import SplitFlapText from "./SplitFlapText";
 
+const ShapeWaves = lazy(() => import("./ShapeWaves"));
+
 export const Hero = () => {
-  return <section id="hero" className="hero-shell relative flex min-h-[min(900px,100svh)] items-center overflow-hidden px-6 pb-12 pt-28 md:px-10 lg:px-16">
+  const [shapeError, setShapeError] = useState(false);
+
+  return (
+  <section id="hero" className="hero-shell relative flex min-h-[min(900px,100svh)] items-center overflow-hidden px-6 pb-12 pt-28 md:px-10 lg:px-16">
     <div className="hero-atmosphere" aria-hidden="true" />
-    <svg className="hero-signals" viewBox="0 0 900 620" fill="none" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
-      <defs><linearGradient id="signal-gradient" x1="0" y1="0" x2="900" y2="620" gradientUnits="userSpaceOnUse"><stop stopColor="#9B72FF" stopOpacity="0"/><stop offset=".48" stopColor="#9B72FF" stopOpacity=".62"/><stop offset="1" stopColor="#55F1DE" stopOpacity="0"/></linearGradient></defs>
-      <path className="signal-path signal-path-a" d="M260 620V410c0-56 45-101 101-101h83c49 0 89-40 89-89V0"/>
-      <path className="signal-path signal-path-b" d="M0 470h155c58 0 105-47 105-105v-50c0-59 48-107 107-107h182c70 0 126-56 126-126V0"/>
-      <path className="signal-path signal-path-c" d="M512 620V470c0-55 45-100 100-100h66c53 0 96-43 96-96V0"/>
-      <circle className="signal-node signal-node-a" cx="260" cy="365" r="3"/><circle className="signal-node signal-node-b" cx="512" cy="219" r="3"/><circle className="signal-node signal-node-c" cx="678" cy="370" r="3"/>
-    </svg>
-    <div className="relative z-10 mx-auto w-full max-w-[1500px]">
+    <div className="hero-shape-waves" aria-hidden="true">
+      <Suspense fallback={null}>
+        {shapeError ? <svg className="hero-shape-fallback" viewBox="0 0 1200 760" preserveAspectRatio="none" role="presentation">
+          <path d="M350 520C520 280 630 690 815 430S1050 190 1200 320" />
+          <path d="M470 620C620 420 700 690 885 520S1080 330 1200 420" />
+          <path d="M540 330C690 160 810 420 970 295S1100 200 1200 245" />
+        </svg> : <ShapeWaves
+          text="</>"
+          fontFamily='Geist, "Geist Sans", system-ui, sans-serif'
+          fontWeight={500}
+          textSize={0.6}
+          shapes="mixed"
+          cellSize={10}
+          dotSize={0.75}
+          color="#8e8b9f"
+          hoverColor="#55f1de"
+          backgroundColor="#090a12"
+          speed={0.72}
+          scale={1}
+          contrast={1}
+          brightness={0.32}
+          flow={0}
+          direction={0}
+          fade={0.25}
+          interactive
+          splashRadius={40}
+          splashStrength={0.4}
+          glow={0.35}
+          intro
+          introDuration={1.6}
+                  onError={(error) => {
+                    console.error("ShapeWaves renderer error:", error);
+                    setShapeError(false);
+                  }}
+        />}
+      </Suspense>
+    </div>
+    <div className="hero-layout relative z-10 mx-auto w-full max-w-[1500px]">
       <div className="hero-copy relative z-10">
         <p className="eyebrow hero-identity-label hero-enter hero-enter-1">
           <span className="signal-dot" /> INDEPENDENT ENGINEER <span className="eyebrow-slash">/</span> SYSTEMS &amp; AI
@@ -20,11 +56,11 @@ export const Hero = () => {
         <h1 className="hero-title hero-enter hero-enter-2">{PERSONAL.name}<span className="hero-period">.</span></h1>
         <p className="hero-focus-line hero-enter hero-enter-3">Backend systems <span>·</span> Real-time software <span>·</span> Applied AI</p>
         <div className="hero-intro hero-enter hero-enter-4">
-          <p className="hero-description">I&apos;m an Electrical Engineering student at NIT Raipur, building software systems, infrastructure, and applied AI.</p>
+          <p className="hero-description">I&apos;m an Electrical Engineering student at NIT Raipur, building backend systems, real-time tools, and AI workflows. I also spend a weird amount of time convincing edge cases to behave.</p>
         </div>
         <div className="hero-flap-row hero-enter hero-enter-5">
           <span className="hero-flap-label">CURRENT FOCUS</span>
-          <SplitFlapText words={["APPLIED AI", "REAL-TIME SYSTEMS", "RELIABLE BACKENDS"]} fontSize={10} gap={2} tileRadius={2} cycleDelay={5200} flipDuration={0.1} stagger={0.025} flipsPerChar={2} intro padTo={19} align="left" tileStyle="board" tileColor="#151522" textColor="#e3def4" depth={0.15} glare={0} className="hero-status-flap" />
+          <SplitFlapText words={["APPLIED AI", "BACKEND SYSTEMS", "REAL TIME TOOLS", "SYSTEM DESIGN"]} charset="alphanumeric" fontSize={13} gap={2} tileRadius={3} cycleDelay={5200} flipDuration={0.1} stagger={0.025} flipsPerChar={2} intro padTo={15} align="left" tileStyle="board" tileColor="#151522" textColor="#e3def4" depth={0.24} glare={0} className="hero-status-flap" />
         </div>
         <div className="hero-actions hero-enter hero-enter-6">
           <a className="action-primary" href="#projects">Explore selected work <ArrowRight size={17} /></a>
@@ -37,5 +73,6 @@ export const Hero = () => {
       </div>
     </div>
     <a className="hero-scroll" href="#projects"><span>Scroll to selected work</span><ArrowDown size={15} /></a>
-  </section>;
+  </section>
+  );
 };

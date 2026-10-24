@@ -1,6 +1,8 @@
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Github } from "lucide-react";
 import { PERSONAL } from "@/data";
 import { ACHIEVEMENTS } from "@/data/achievements";
+import { useCounter } from "@/hooks/useCounter";
 import RevealOnScroll from "./RevealOnScroll";
 import { SectionHeader } from "./SectionHeader";
 
@@ -11,9 +13,25 @@ const ratings = [
 ] as const;
 
 function Rating({ label, value, title, tone, href }: (typeof ratings)[number]) {
-  return <a className={`rating-row rating-${tone}`} role="listitem" href={href} target="_blank" rel="noreferrer" aria-label={`${label}: ${value}, ${title}`}>
+  const rowRef = useRef<HTMLAnchorElement>(null);
+  const [visible, setVisible] = useState(false);
+  const count = useCounter(value, 900, visible);
+
+  useEffect(() => {
+    const row = rowRef.current;
+    if (!row || visible) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setVisible(true);
+      observer.disconnect();
+    }, { threshold: 0.4 });
+    observer.observe(row);
+    return () => observer.disconnect();
+  }, [visible]);
+
+  return <a ref={rowRef} className={`rating-row rating-${tone}`} role="listitem" href={href} target="_blank" rel="noreferrer" aria-label={`${label}: ${value}, ${title}`}>
     <span className="rating-platform">{label}</span>
-    <data value={value} className="rating-value">{value.toLocaleString("en-IN")}</data>
+    <data value={value} className="rating-value"><span aria-hidden="true">{count.toLocaleString("en-IN")}</span></data>
     <span className="rating-title">{title}</span>
     <ArrowUpRight size={17} aria-hidden="true" />
   </a>;

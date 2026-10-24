@@ -16,7 +16,8 @@ const Index = () => (
       <Hero />
       <section className="focus-velocity-strip" aria-label="Engineering focus">
         <h2 className="sr-only">Engineering focus</h2>
-        <ScrollVelocity texts={["REAL-TIME SYSTEMS   \u00b7   RELIABLE BACKENDS   \u00b7   APPLIED AI   \u00b7"]} velocity={150} damping={70} stiffness={300} numCopies={3} fadeEdges fontSize="clamp(1rem, 2.35vw, 2rem)" fontWeight={550} color="#cbc8d8" gap={0} pauseOnHover />
+        <div className="focus-velocity-motion" aria-hidden="true"><ScrollVelocity texts={["REAL-TIME SYSTEMS   •   RELIABLE BACKENDS   •   APPLIED AI   •   ENGINEERING WITH EVIDENCE"]} velocity={190} damping={70} stiffness={300} numCopies={3} fadeEdges skewWithVelocity={4} scaleWithVelocity={0.03} fontSize="clamp(1rem, 2.35vw, 2rem)" fontWeight={550} color="#cbc8d8" gap={0} pauseOnHover /></div>
+        <p className="focus-velocity-static sr-only">REAL-TIME SYSTEMS <span>•</span> RELIABLE BACKENDS <span>•</span> APPLIED AI <span>•</span> ENGINEERING WITH EVIDENCE</p>
       </section>
       <Projects />
       <Systems />

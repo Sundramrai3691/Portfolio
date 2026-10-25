@@ -48,7 +48,7 @@ export function ProjectVisual({ projectId }: { projectId: string }) {
       <text x={Number(x)} y="222" textAnchor="middle" className="diagram-label">{title}</text><text x={Number(x)} y="244" textAnchor="middle" className="diagram-caption">{detail}</text>
     </g>)}
     <text x="380" y="320" textAnchor="middle" className="diagram-overline">LOW CONFIDENCE OR INCONSISTENCY → HUMAN CORRECTION</text>
-    <g className="diagram-metric"><text x="295" y="400" textAnchor="middle" className="diagram-metric-value">86%</text><text x="295" y="426" textAnchor="middle" className="diagram-caption">EXTRACTION ACCURACY</text><text x="516" y="400" textAnchor="middle" className="diagram-metric-value">2.56/s</text><text x="516" y="426" textAnchor="middle" className="diagram-caption">INVOICES PROCESSED</text></g>
+    <text x="380" y="400" textAnchor="middle" className="diagram-caption">HUMAN CORRECTIONS RETURN TO THE AUDITABLE RECORD</text>
   </Diagram>;
 
   return <Diagram title="PeopleOps Copilot has three bounded workflows: cited policy retrieval, role-checked workforce analytics with a fixed query, and validated employee actions requiring manager approval and an audit record.">

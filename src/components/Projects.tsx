@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ADDITIONAL_PROJECTS, PROJECTS } from "@/data/projects";
 import { SectionHeader } from "./SectionHeader";
 import { ProjectVisual } from "./ProjectVisual";
+import { CountUpMetric } from "./CountUpMetric";
 
 const stackGlyphs: Record<string, LucideIcon> = {
   React: Layers, "Socket.IO": Network, "Node.js": Server, MongoDB: Database, Redis: Layers, Docker: Boxes,
@@ -23,7 +24,7 @@ function ProjectCaseStudy({ project }: { project: (typeof PROJECTS)[number] }) {
 export const Projects = () => (
   <section id="projects" className="projects-section section-frame">
     <div className="mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16">
-      <SectionHeader eyebrow="SELECTED WORK" title="Systems with a pulse." description="Four products shaped by coordination, evidence, extraction, and trust." />
+      <SectionHeader eyebrow="SELECTED WORK" title="Systems with a pulse." description="Useful software, built for real workflows. Occasionally humbled by edge cases." />
       <div className="project-list">
         {PROJECTS.map((project, index) => (
           <motion.article id={project.id} key={project.id} className={`project-row ${index % 2 ? "project-row-reverse" : ""}`} initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.16 }} transition={{ duration: 0.65, ease: [0.2, 0.75, 0.25, 1] }}>
@@ -33,7 +34,11 @@ export const Projects = () => (
               <h3>{project.title}<span className="project-title-mark">↗</span></h3>
               <p className="project-subtitle">{project.subtitle}</p>
               <p className="project-description">{project.description}</p>
-              {project.metric && <p className="project-result"><span className="result-mark" aria-hidden="true">↗</span>{project.metric}</p>}
+              {project.impact && <p className="project-impact">
+                <CountUpMetric value={project.impact.value} suffix={project.impact.suffix} className="project-impact-value" />
+                <span className="project-impact-label">{project.impact.label}</span>
+              </p>}
+              {project.supportingMetric && <p className="project-supporting-metric">{project.supportingMetric}</p>}
               <ul className="project-tags" aria-label={`${project.title} technology stack`}>
                 {project.tags.slice(0, 5).map((tag) => {
                   const Icon = stackGlyphs[tag] ?? Code2;

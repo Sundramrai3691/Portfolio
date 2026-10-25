@@ -16,7 +16,7 @@ const SYSTEMS = [
       { title: "Execution provider", detail: "Code execution is delegated to Judge0 or Piston; the room does not run untrusted code in its own process." },
       { title: "Result + report", detail: "Execution results and hidden-test outcomes return to participants, with session reporting for the practice workflow." },
     ],
-    note: "Persistence and Redis pub/sub are optional scaling paths; the implementation also documents room-state fallbacks.",
+    note: "Role-aware room state controls who can drive. Authenticated room and run reports persist to MongoDB; Docker packages deployment, while Redis token buckets use atomic Lua scripts.",
   },
   {
     id: "recallloop", title: "RecallLoop", lens: "Learner evidence · deliberate review", color: "violet",
@@ -42,7 +42,7 @@ const SYSTEMS = [
       { title: "Normalize + check", detail: "Dates, currencies, vendors, and amounts are canonicalized. Arithmetic, field, and exact/near-duplicate checks can flag a record." },
       { title: "Review + audit", detail: "Low-confidence or inconsistent fields enter a human review flow. Corrections are logged and structured data can be exported." },
     ],
-    note: "The portfolio metrics are 86% extraction accuracy and 2.56 invoices/s; the README has also listed different evaluation numbers over time, so these are presented as the documented portfolio benchmark.",
+    note: "The portfolio-reported benchmark is 86% extraction accuracy and 2.56 invoices/s. The repository README currently reports 88% average accuracy on a validation dataset and 5–20 seconds per invoice; these results need a shared evaluation definition before they can be reconciled.",
   },
   {
     id: "peopleops-copilot", title: "PeopleOps Copilot", lens: "Policy · analytics · approvals", color: "mint",

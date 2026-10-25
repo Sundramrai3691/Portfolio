@@ -28,6 +28,7 @@ The hero sculpture is formed from three custom folded, iridescent ribbon meshes 
 - **Liquid glass / liquid metal (Spline and Shader Lab):** adapted as controlled clearcoat and Three.js iridescence on procedural folded ribbons. There is no downloaded Spline scene or external model.
 - **Pointer-reactive sculpture (Spline):** adapted as a damped pointer tilt on the complete ribbon form, with low-power rendering and static reduced-motion/mobile fallback.
 - **Masked heading (React Bits):** adapted as one short, staggered hero headline reveal. Particle text was not added because it would compete with legibility.
+- **Technology marks (React Bits CircularCarousel):** the compact technology strip uses local Simple Icons SVGs in a draggable carousel, pauses on hover, and switches to a horizontally scrollable static list for reduced-motion and small-screen users. Project impact counters use React Bits CountUp with the existing Framer Motion dependency, run once in view, and remain static when reduced motion is preferred.
 - **Portal Shapes (pmndrs):** used as a reference for section depth and spatial framing; no portal transition was added because natural vertical reading better fits these case studies.
 - **Shader Lab particle examples:** adapted only as a sparse set of static points around the hero form, avoiding continuous particle simulation.
 

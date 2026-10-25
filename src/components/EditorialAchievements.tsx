@@ -5,6 +5,7 @@ import { ACHIEVEMENTS } from "@/data/achievements";
 import { useCounter } from "@/hooks/useCounter";
 import RevealOnScroll from "./RevealOnScroll";
 import { SectionHeader } from "./SectionHeader";
+import { CountUpMetric } from "./CountUpMetric";
 
 const ratings = [
   { label: "LeetCode", value: 1904, title: "Knight", tone: "violet", href: PERSONAL.leetcode },
@@ -44,7 +45,7 @@ export const Achievements = () => {
     <div className="mx-auto max-w-[1320px] px-6 md:px-10 lg:px-16">
       <SectionHeader eyebrow="Proof of practice" title="Milestones, earned in public." description="Competitive programming, open-source work, and early product validation—measured and specific." />
       <div className="achievement-feature">
-        <div className="achievement-intro"><p className="systems-lens">COMPETITIVE PROGRAMMING</p><h3>Practice that compounds.</h3><p>Regular problem solving across timed contests and platform challenges.</p><div className="dsa-count"><data value="2000">2,000+</data><span>DSA problems solved</span></div></div>
+        <div className="achievement-intro"><p className="systems-lens">COMPETITIVE PROGRAMMING</p><h3>Practice that compounds.</h3><p>Regular problem solving across timed contests and platform challenges.</p><div className="dsa-count"><CountUpMetric value={2000} suffix="+" /><span>DSA problems solved</span></div></div>
         <div className="rating-list" role="list" aria-label="Competitive programming ratings">{ratings.map((rating) => <Rating key={rating.label} {...rating} />)}</div>
       </div>
       <div className="achievement-profile-links"><a href={PERSONAL.github} target="_blank" rel="noreferrer"><Github size={15} aria-hidden="true" /> GitHub <ArrowUpRight size={13} aria-hidden="true" /></a><a href={PERSONAL.codolio} target="_blank" rel="noreferrer">Codolio <ArrowUpRight size={13} aria-hidden="true" /></a></div>
